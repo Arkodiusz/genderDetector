@@ -1,11 +1,13 @@
 package com.jedrzejewski.genderDetector;
 
+import com.jedrzejewski.genderDetector.exceptions.FileReaderException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -15,15 +17,20 @@ public class GenderDetectorController {
     @Autowired
     GenderDetectorService service;
 
-    @GetMapping(value = "detectGender")
+    @GetMapping(value = "detect")
     public String detectGender(@RequestParam String name, @RequestParam int variant) {
 
         return service.detectGender();
     }
 
-    @GetMapping(value = "showTokens")
+    @GetMapping(value = "tokens")
     public List<String> showTokens() {
-
-        return service.showTokens();
+        List<String> tokenList = new ArrayList<>();
+        try {
+            tokenList = service.showTokens();
+        } catch (FileReaderException e) {
+            e.printStackTrace();
+        }
+        return tokenList;
     }
 }
