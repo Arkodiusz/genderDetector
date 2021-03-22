@@ -1,6 +1,9 @@
 package com.jedrzejewski.genderDetector;
 
+import com.jedrzejewski.genderDetector.data.FileReaderForComparingTokens;
 import com.jedrzejewski.genderDetector.exceptions.FileReaderException;
+import com.jedrzejewski.genderDetector.data.FileReaderForRetrievingTokenList;
+import com.jedrzejewski.genderDetector.exceptions.WrongParameterException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,22 +12,37 @@ import java.util.List;
 @Service
 public class GenderDetectorService {
 
-    public String detectGender() {
+    private String pathToMaleTokens;
+    private String pathToFemaleTokens;
 
-        return "INCONCLUSIVE";
+    public GenderDetectorService() throws FileReaderException {
+        this.pathToFemaleTokens = getPathTo("female.txt");
+        this.pathToMaleTokens = getPathTo("male.txt");
+    }
+
+    public String detectGender(String name, int variant) throws FileReaderException, WrongParameterException {
+        FileReaderForComparingTokens fileReader = new FileReaderForComparingTokens();
+
+        switch(variant) {
+            case 1:
+                if (fileReader.compareOnlyFirstToken(name, pathToFemaleTokens)) return "FEMALE";
+                else if (fileReader.compareOnlyFirstToken(name, pathToMaleTokens)) return "MALE";
+                else return "INCONCLUSIVE";
+
+            default:
+                throw new WrongParameterException("Provided variant is out of bounds");
+        }
     }
 
     public List<String> showTokens() throws FileReaderException {
-
         List<String> tokenList = new ArrayList<>();
-        FileReader fileReader = new FileReader();
-        tokenList.addAll(fileReader.readFile(getPathTo("male.txt")));
-        tokenList.addAll(fileReader.readFile(getPathTo("female.txt")));
+        FileReaderForRetrievingTokenList fileReader = new FileReaderForRetrievingTokenList();
+        tokenList.addAll(fileReader.readFile(pathToFemaleTokens));
+        tokenList.addAll(fileReader.readFile(pathToMaleTokens));
         return tokenList;
     }
 
     private String getPathTo(String fileName) throws FileReaderException {
-
         ClassLoader classLoader = getClass().getClassLoader();
         String path;
         try {
