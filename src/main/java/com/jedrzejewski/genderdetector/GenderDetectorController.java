@@ -1,8 +1,7 @@
-package com.jedrzejewski.genderDetector;
+package com.jedrzejewski.genderdetector;
 
-import com.jedrzejewski.genderDetector.exceptions.FileReaderException;
-import com.jedrzejewski.genderDetector.exceptions.WrongParameterException;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.jedrzejewski.genderdetector.exceptions.FileReaderException;
+import com.jedrzejewski.genderdetector.exceptions.WrongParameterException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,8 +14,11 @@ import java.util.List;
 @RequestMapping(value = "/api/gender")
 public class GenderDetectorController {
 
-    @Autowired
-    GenderDetectorService service;
+    final GenderDetectorService service;
+
+    public GenderDetectorController(GenderDetectorService service) {
+        this.service = service;
+    }
 
     @GetMapping(value = "detect")
     public String detectGender(@RequestParam String name, @RequestParam int variant) {
@@ -30,10 +32,10 @@ public class GenderDetectorController {
     }
 
     @GetMapping(value = "tokens")
-    public List<String> showTokens() {
+    public List<String> showTokens(@RequestParam String gender) {
         List<String> tokenList = new ArrayList<>();
         try {
-            tokenList = service.showTokens();
+            tokenList = service.showTokens(gender);
         } catch (FileReaderException e) {
             e.printStackTrace();
         }

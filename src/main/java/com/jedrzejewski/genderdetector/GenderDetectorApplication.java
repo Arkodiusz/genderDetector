@@ -1,4 +1,4 @@
-package com.jedrzejewski.genderDetector;
+package com.jedrzejewski.genderdetector;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

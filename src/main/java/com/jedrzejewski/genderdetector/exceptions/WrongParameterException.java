@@ -1,4 +1,4 @@
-package com.jedrzejewski.genderDetector.exceptions;
+package com.jedrzejewski.genderdetector.exceptions;
 
 public class WrongParameterException extends Exception {
 

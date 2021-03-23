@@ -1,13 +1,12 @@
-package com.jedrzejewski.genderDetector.data;
+package com.jedrzejewski.genderdetector.data;
 
-import com.jedrzejewski.genderDetector.exceptions.FileReaderException;
-import org.springframework.stereotype.Component;
+import com.jedrzejewski.genderdetector.exceptions.FileReaderException;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
-@Component
 public abstract class FileReader {
 
     private FileInputStream inputStream = null;
@@ -15,8 +14,8 @@ public abstract class FileReader {
 
     protected boolean setup(String path) throws FileReaderException {
         try {
-            FileInputStream inputStream = new FileInputStream(path);
-            sc = new Scanner(inputStream, "windows-1250");
+            inputStream = new FileInputStream(path);
+            sc = new Scanner(inputStream, StandardCharsets.UTF_8);
         } catch (IOException e) {
             throw new FileReaderException("Failed to open input stream on file at " + path);
         }

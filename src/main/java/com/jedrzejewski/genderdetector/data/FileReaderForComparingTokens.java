@@ -1,6 +1,6 @@
-package com.jedrzejewski.genderDetector.data;
+package com.jedrzejewski.genderdetector.data;
 
-import com.jedrzejewski.genderDetector.exceptions.FileReaderException;
+import com.jedrzejewski.genderdetector.exceptions.FileReaderException;
 
 import java.io.IOException;
 
@@ -12,10 +12,8 @@ public class FileReaderForComparingTokens extends FileReader{
         try {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
-                if (line.toLowerCase().equals(retrieveFirstToken(name).toLowerCase())) {
-                    tokenFound = line.toLowerCase().equals(retrieveFirstToken(name).toLowerCase());
-                    break;
-                }
+                tokenFound = line.equalsIgnoreCase(retrieveFirstToken(name));
+                if (tokenFound) break;
             }
             if (sc.ioException() != null) {
                 throw sc.ioException();
