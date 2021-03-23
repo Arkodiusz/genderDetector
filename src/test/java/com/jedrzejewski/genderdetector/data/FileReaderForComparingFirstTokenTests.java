@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class FileReaderForComparingTokensTests {
+class FileReaderForComparingFirstTokenTests {
 
     @Test
     void shouldDetectMaleByComparingOnlyFirstTokenOfGivenName() throws PathExtractorException, FileReaderException {
@@ -19,10 +19,10 @@ class FileReaderForComparingTokensTests {
         String pathToFemale = new PathExtractor().getPathTo("female.txt");
 
         //When
-        boolean male1 = fileReader.compareOnlyFirstToken("Jan Maria Rokita", pathToMale);
+        boolean male1 = fileReader.compareOnlyFirstToken("Jan", pathToMale);
         boolean male2 = fileReader.compareOnlyFirstToken("Aaron", pathToMale);
         boolean male3 = fileReader.compareOnlyFirstToken("Zygmunt", pathToMale);
-        boolean female = fileReader.compareOnlyFirstToken("Jan Maria Rokita", pathToFemale);
+        boolean female = fileReader.compareOnlyFirstToken("Jan", pathToFemale);
 
         //Then
         assertAll(
@@ -42,10 +42,10 @@ class FileReaderForComparingTokensTests {
         String pathToFemale = new PathExtractor().getPathTo("female.txt");
 
         //When
-        boolean female1 = fileReader.compareOnlyFirstToken("Anna Zbigniew Gertruda", pathToFemale);
+        boolean female1 = fileReader.compareOnlyFirstToken("Anna", pathToFemale);
         boolean female2 = fileReader.compareOnlyFirstToken("Ada", pathToFemale);
         boolean female3 = fileReader.compareOnlyFirstToken("Zyta", pathToFemale);
-        boolean male = fileReader.compareOnlyFirstToken("Anna Zbigniew Gertruda", pathToMale);
+        boolean male = fileReader.compareOnlyFirstToken("Anna", pathToMale);
 
         //Then
         assertAll(
