@@ -1,13 +1,11 @@
 package com.jedrzejewski.genderdetector.data;
 
 import com.jedrzejewski.genderdetector.exceptions.FileReaderException;
-import org.springframework.stereotype.Component;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Scanner;
 
-@Component
 public abstract class FileReader {
 
     private FileInputStream inputStream = null;
