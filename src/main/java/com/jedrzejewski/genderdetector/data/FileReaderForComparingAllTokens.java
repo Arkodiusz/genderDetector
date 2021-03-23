@@ -4,16 +4,20 @@ import com.jedrzejewski.genderdetector.exceptions.FileReaderException;
 
 import java.io.IOException;
 
-public class FileReaderForComparingTokens extends FileReader{
+public class FileReaderForComparingAllTokens extends FileReader {
 
-    public boolean compareOnlyFirstToken(String name, String path) throws FileReaderException {
-        boolean tokenFound = false;
+    public int compareAllTokens(String[] providedTokens, String path) throws FileReaderException {
+        int occurrenceCounter = 0;
         setup(path);
         try {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
-                tokenFound = line.equalsIgnoreCase(retrieveFirstToken(name));
-                if (tokenFound) break;
+                for (String providedToken : providedTokens) {
+                    if (line.equalsIgnoreCase(providedToken)) {
+                        occurrenceCounter++;
+                        break;
+                    }
+                }
             }
             if (sc.ioException() != null) {
                 throw sc.ioException();
@@ -23,12 +27,6 @@ public class FileReaderForComparingTokens extends FileReader{
         } finally {
             close();
         }
-        return tokenFound;
+        return occurrenceCounter;
     }
-
-    private String retrieveFirstToken(String name) {
-        String[] tokensInName = name.split(" ");
-        return tokensInName[0];
-    }
-
 }
