@@ -4,7 +4,7 @@ import com.jedrzejewski.genderdetector.exceptions.FileReaderException;
 
 import java.io.IOException;
 
-public class FileReaderForComparingTokens extends FileReader{
+public class FileReaderForComparingFirstToken extends FileReader{
 
     public boolean compareOnlyFirstToken(String name, String path) throws FileReaderException {
         boolean tokenFound = false;
@@ -30,5 +30,4 @@ public class FileReaderForComparingTokens extends FileReader{
         String[] tokensInName = name.split(" ");
         return tokensInName[0];
     }
-
 }

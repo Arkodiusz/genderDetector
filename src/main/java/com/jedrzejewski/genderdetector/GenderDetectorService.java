@@ -1,6 +1,6 @@
 package com.jedrzejewski.genderdetector;
 
-import com.jedrzejewski.genderdetector.data.FileReaderForComparingTokens;
+import com.jedrzejewski.genderdetector.data.FileReaderForComparingFirstToken;
 import com.jedrzejewski.genderdetector.data.PathExtractor;
 import com.jedrzejewski.genderdetector.exceptions.FileReaderException;
 import com.jedrzejewski.genderdetector.data.FileReaderForRetrievingTokenList;
@@ -24,17 +24,13 @@ public class GenderDetectorService {
     }
 
     public String detectGender(String name, int variant) throws FileReaderException, WrongParameterException {
-        FileReaderForComparingTokens fileReader = new FileReaderForComparingTokens();
 
-        switch(variant) {
-            case 1:
-                if (fileReader.compareOnlyFirstToken(name, pathToFemaleTokens)) return "FEMALE";
-                else if (fileReader.compareOnlyFirstToken(name, pathToMaleTokens)) return "MALE";
-                else return "INCONCLUSIVE";
-
-            default:
-                throw new WrongParameterException("Provided variant is out of bounds");
+        if (variant == 1) {
+            return detectGenderByComparingOnlyFirstToken(name);
+        } else if (variant == 2) {
+            return detectGenderByComparingAllTokens(name);
         }
+        throw new WrongParameterException("Provided variant is out of bounds");
     }
 
     public List<String> showTokens(String gender) throws FileReaderException {
@@ -47,5 +43,16 @@ public class GenderDetectorService {
             tokenList.addAll(fileReader.readFile(pathToMaleTokens));
         }
         return tokenList;
+    }
+
+    private String detectGenderByComparingOnlyFirstToken(String name) throws FileReaderException {
+        FileReaderForComparingFirstToken fileReader = new FileReaderForComparingFirstToken();
+        if (fileReader.compareOnlyFirstToken(name, pathToFemaleTokens)) return "FEMALE";
+        else if (fileReader.compareOnlyFirstToken(name, pathToMaleTokens)) return "MALE";
+        else return "INCONCLUSIVE";
+    }
+
+    private String detectGenderByComparingAllTokens(String name) {
+        return "INCONCLUSIVE";
     }
 }

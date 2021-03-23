@@ -14,7 +14,7 @@ class FileReaderForComparingTokensTests {
     void shouldDetectMaleByComparingOnlyFirstTokenOfGivenName() throws PathExtractorException, FileReaderException {
 
         //Given
-        FileReaderForComparingTokens fileReader = new FileReaderForComparingTokens();
+        FileReaderForComparingFirstToken fileReader = new FileReaderForComparingFirstToken();
         String pathToMale = new PathExtractor().getPathTo("male.txt");
         String pathToFemale = new PathExtractor().getPathTo("female.txt");
 
@@ -37,7 +37,7 @@ class FileReaderForComparingTokensTests {
     void shouldDetectFemaleByComparingOnlyFirstTokenOfGivenName() throws PathExtractorException, FileReaderException {
 
         //Given
-        FileReaderForComparingTokens fileReader = new FileReaderForComparingTokens();
+        FileReaderForComparingFirstToken fileReader = new FileReaderForComparingFirstToken();
         String pathToMale = new PathExtractor().getPathTo("male.txt");
         String pathToFemale = new PathExtractor().getPathTo("female.txt");
 
@@ -60,7 +60,7 @@ class FileReaderForComparingTokensTests {
     void shouldRejectUnknownTokens() throws PathExtractorException, FileReaderException {
 
         //Given
-        FileReaderForComparingTokens fileReader = new FileReaderForComparingTokens();
+        FileReaderForComparingFirstToken fileReader = new FileReaderForComparingFirstToken();
         String pathToMale = new PathExtractor().getPathTo("male.txt");
         String pathToFemale = new PathExtractor().getPathTo("female.txt");
 
@@ -92,7 +92,7 @@ class FileReaderForComparingTokensTests {
     void shouldIgnoreUpperAndLowerCase() throws PathExtractorException, FileReaderException {
 
         //Given
-        FileReaderForComparingTokens fileReader = new FileReaderForComparingTokens();
+        FileReaderForComparingFirstToken fileReader = new FileReaderForComparingFirstToken();
         String pathToMale = new PathExtractor().getPathTo("male.txt");
         String pathToFemale = new PathExtractor().getPathTo("female.txt");
 
