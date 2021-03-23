@@ -7,10 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class PathExtractorTests {
+class PathExtractorTests {
 
     @Test
-    public void shouldExtractPathToFileWithFemaleTokens() {
+    void shouldExtractPathToFileWithFemaleTokens() {
 
         //Given
         PathExtractor pathExtractor = new PathExtractor();
@@ -31,7 +31,7 @@ public class PathExtractorTests {
     }
 
     @Test
-    public void shouldExtractPathToFileWithMaleTokens() {
+    void shouldExtractPathToFileWithMaleTokens() {
 
         //Given
         PathExtractor pathExtractor = new PathExtractor();
@@ -52,7 +52,7 @@ public class PathExtractorTests {
     }
 
     @Test
-    public void shouldThrowPathExtractorException() {
+    void shouldThrowPathExtractorException() {
 
         //Given
         PathExtractor pathExtractor = new PathExtractor();
@@ -64,6 +64,7 @@ public class PathExtractorTests {
         String expectedMessage = "File \"" + fileName + "\" not found";
         String actualMessage = exception.getMessage();
 
+        //Then
         assertTrue(actualMessage.contains(expectedMessage));
     }
 }

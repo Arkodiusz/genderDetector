@@ -37,11 +37,15 @@ public class GenderDetectorService {
         }
     }
 
-    public List<String> showTokens() throws FileReaderException {
+    public List<String> showTokens(String gender) throws FileReaderException {
         List<String> tokenList = new ArrayList<>();
         FileReaderForRetrievingTokenList fileReader = new FileReaderForRetrievingTokenList();
-        tokenList.addAll(fileReader.readFile(pathToFemaleTokens));
-        tokenList.addAll(fileReader.readFile(pathToMaleTokens));
+
+        if (gender.equals("female")) {
+            tokenList.addAll(fileReader.readFile(pathToFemaleTokens));
+        } else {
+            tokenList.addAll(fileReader.readFile(pathToMaleTokens));
+        }
         return tokenList;
     }
 }

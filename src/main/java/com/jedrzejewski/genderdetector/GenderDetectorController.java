@@ -32,10 +32,10 @@ public class GenderDetectorController {
     }
 
     @GetMapping(value = "tokens")
-    public List<String> showTokens() {
+    public List<String> showTokens(@RequestParam String gender) {
         List<String> tokenList = new ArrayList<>();
         try {
-            tokenList = service.showTokens();
+            tokenList = service.showTokens(gender);
         } catch (FileReaderException e) {
             e.printStackTrace();
         }
