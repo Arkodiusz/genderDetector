@@ -1,7 +1,6 @@
 package com.jedrzejewski.genderdetector;
 
-import com.jedrzejewski.genderdetector.data.FileReaderForComparingAllTokens;
-import com.jedrzejewski.genderdetector.data.FileReaderForComparingFirstToken;
+import com.jedrzejewski.genderdetector.data.FileReaderForComparingTokens;
 import com.jedrzejewski.genderdetector.data.PathExtractor;
 import com.jedrzejewski.genderdetector.exceptions.FileReaderException;
 import com.jedrzejewski.genderdetector.data.FileReaderForRetrievingTokenList;
@@ -25,11 +24,10 @@ public class GenderDetectorService {
     }
 
     public String detectGender(String name, int variant) throws FileReaderException, WrongParameterException {
-
         if (variant == 1) {
-            return detectGenderByComparingOnlyFirstToken(name);
+            return detectGenderByComparingCountOfOccurrencesInTokensList(retrieveFirstToken(name));
         } else if (variant == 2) {
-            return detectGenderByComparingAllTokens(name);
+            return detectGenderByComparingCountOfOccurrencesInTokensList(retrieveAllTokens(name));
         }
         throw new WrongParameterException("Provided variant is out of bounds");
     }
@@ -46,32 +44,22 @@ public class GenderDetectorService {
         return tokenList;
     }
 
-    private String detectGenderByComparingOnlyFirstToken(String name) throws FileReaderException {
-        FileReaderForComparingFirstToken fileReader = new FileReaderForComparingFirstToken();
-        String providedToken = retrieveFirstToken(name);
-
-        if (fileReader.compareOnlyFirstToken(providedToken, pathToFemaleTokens)) return "FEMALE";
-        else if (fileReader.compareOnlyFirstToken(providedToken, pathToMaleTokens)) return "MALE";
-        else return "INCONCLUSIVE";
-    }
-
-    private String detectGenderByComparingAllTokens(String name) throws FileReaderException {
-        FileReaderForComparingAllTokens fileReader = new FileReaderForComparingAllTokens();
-        String[] providedTokens = splitNameToTokens(name);
-        int countOfFemaleTokensInName = fileReader.compareAllTokens(providedTokens, pathToFemaleTokens);
-        int countOfMaleTokens = fileReader.compareAllTokens(providedTokens, pathToMaleTokens);
+    private String detectGenderByComparingCountOfOccurrencesInTokensList(String[] providedTokens) throws FileReaderException {
+        FileReaderForComparingTokens fileReader = new FileReaderForComparingTokens();
+        int countOfFemaleTokensInName = fileReader.compare(providedTokens, pathToFemaleTokens);
+        int countOfMaleTokens = fileReader.compare(providedTokens, pathToMaleTokens);
 
         if (countOfFemaleTokensInName > countOfMaleTokens) return "FEMALE";
         else if (countOfFemaleTokensInName < countOfMaleTokens) return "MALE";
         else return "INCONCLUSIVE";
     }
 
-    private String retrieveFirstToken(String name) {
+    private String[] retrieveFirstToken(String name) {
         String[] tokensInName = name.split(" ");
-        return tokensInName[0];
+        return new String[]{tokensInName[0]};
     }
 
-    private String[] splitNameToTokens(String name) {
+    private String[] retrieveAllTokens(String name) {
         return name.split(" ");
     }
 }
