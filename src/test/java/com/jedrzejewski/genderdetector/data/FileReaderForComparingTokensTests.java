@@ -8,21 +8,21 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-class FileReaderForComparingAllTokensTests {
+class FileReaderForComparingTokensTests {
 
     @Test
     void shouldCountOneOccurrenceInFemaleTokensWhenGivenSingleFemaleToken() throws PathExtractorException, FileReaderException {
 
         //Given
-        FileReaderForComparingAllTokens fileReader = new FileReaderForComparingAllTokens();
+        FileReaderForComparingTokens fileReader = new FileReaderForComparingTokens();
         String pathToMale = new PathExtractor().getPathTo("male.txt");
         String pathToFemale = new PathExtractor().getPathTo("female.txt");
 
         String[] providedTokens = {"Maria"};
 
         //When
-        int femaleOccurrenceCounter = fileReader.compareAllTokens(providedTokens, pathToFemale);
-        int maleOccurrenceCounter = fileReader.compareAllTokens(providedTokens, pathToMale);
+        int femaleOccurrenceCounter = fileReader.compare(providedTokens, pathToFemale);
+        int maleOccurrenceCounter = fileReader.compare(providedTokens, pathToMale);
 
         //Then
         assertEquals(1, femaleOccurrenceCounter);
@@ -33,15 +33,15 @@ class FileReaderForComparingAllTokensTests {
     void shouldCountOneOccurrenceInMaleTokensWhenGivenSingleMaleToken() throws PathExtractorException, FileReaderException {
 
         //Given
-        FileReaderForComparingAllTokens fileReader = new FileReaderForComparingAllTokens();
+        FileReaderForComparingTokens fileReader = new FileReaderForComparingTokens();
         String pathToMale = new PathExtractor().getPathTo("male.txt");
         String pathToFemale = new PathExtractor().getPathTo("female.txt");
 
         String[] providedTokens = {"Jan"};
 
         //When
-        int femaleOccurrenceCounter = fileReader.compareAllTokens(providedTokens, pathToFemale);
-        int maleOccurrenceCounter = fileReader.compareAllTokens(providedTokens, pathToMale);
+        int femaleOccurrenceCounter = fileReader.compare(providedTokens, pathToFemale);
+        int maleOccurrenceCounter = fileReader.compare(providedTokens, pathToMale);
 
         //Then
         assertEquals(0, femaleOccurrenceCounter);
@@ -52,15 +52,15 @@ class FileReaderForComparingAllTokensTests {
     void shouldCountTwoFemaleTokensAndOneMaleInGivenName() throws PathExtractorException, FileReaderException {
 
         //Given
-        FileReaderForComparingAllTokens fileReader = new FileReaderForComparingAllTokens();
+        FileReaderForComparingTokens fileReader = new FileReaderForComparingTokens();
         String pathToMale = new PathExtractor().getPathTo("male.txt");
         String pathToFemale = new PathExtractor().getPathTo("female.txt");
 
         String[] providedTokens = {"Anna", "Zbigniew", "Gertruda"};
 
         //When
-        int femaleOccurrenceCounter = fileReader.compareAllTokens(providedTokens, pathToFemale);
-        int maleOccurrenceCounter = fileReader.compareAllTokens(providedTokens, pathToMale);
+        int femaleOccurrenceCounter = fileReader.compare(providedTokens, pathToFemale);
+        int maleOccurrenceCounter = fileReader.compare(providedTokens, pathToMale);
 
         //Then
         assertEquals(2, femaleOccurrenceCounter);
@@ -71,15 +71,15 @@ class FileReaderForComparingAllTokensTests {
     void shouldCountOneFemaleTokensAndOneMaleInGivenName() throws PathExtractorException, FileReaderException {
 
         //Given
-        FileReaderForComparingAllTokens fileReader = new FileReaderForComparingAllTokens();
+        FileReaderForComparingTokens fileReader = new FileReaderForComparingTokens();
         String pathToMale = new PathExtractor().getPathTo("male.txt");
         String pathToFemale = new PathExtractor().getPathTo("female.txt");
 
         String[] providedTokens = {"Jan", "Maria", "Rokita"};
 
         //When
-        int femaleOccurrenceCounter = fileReader.compareAllTokens(providedTokens, pathToFemale);
-        int maleOccurrenceCounter = fileReader.compareAllTokens(providedTokens, pathToMale);
+        int femaleOccurrenceCounter = fileReader.compare(providedTokens, pathToFemale);
+        int maleOccurrenceCounter = fileReader.compare(providedTokens, pathToMale);
 
         //Then
         assertEquals(1, femaleOccurrenceCounter);
@@ -90,15 +90,15 @@ class FileReaderForComparingAllTokensTests {
     void shouldCountZeroFemaleTokensAndZeroMaleTokensWhenOnlyUnknownTokensInGivenName() throws PathExtractorException, FileReaderException {
 
         //Given
-        FileReaderForComparingAllTokens fileReader = new FileReaderForComparingAllTokens();
+        FileReaderForComparingTokens fileReader = new FileReaderForComparingTokens();
         String pathToMale = new PathExtractor().getPathTo("male.txt");
         String pathToFemale = new PathExtractor().getPathTo("female.txt");
 
         String[] providedTokens = {"Janek", "Tomek", "Olka"};
 
         //When
-        int femaleOccurrenceCounter = fileReader.compareAllTokens(providedTokens, pathToFemale);
-        int maleOccurrenceCounter = fileReader.compareAllTokens(providedTokens, pathToMale);
+        int femaleOccurrenceCounter = fileReader.compare(providedTokens, pathToFemale);
+        int maleOccurrenceCounter = fileReader.compare(providedTokens, pathToMale);
 
         //Then
         assertEquals(0, femaleOccurrenceCounter);
@@ -109,15 +109,15 @@ class FileReaderForComparingAllTokensTests {
     void shouldIgnoreUpperAndLowerCase() throws PathExtractorException, FileReaderException {
 
         //Given
-        FileReaderForComparingAllTokens fileReader = new FileReaderForComparingAllTokens();
+        FileReaderForComparingTokens fileReader = new FileReaderForComparingTokens();
         String pathToMale = new PathExtractor().getPathTo("male.txt");
         String pathToFemale = new PathExtractor().getPathTo("female.txt");
 
         String[] providedTokens = {"JAN", "maRiA", "Rokita"};
 
         //When
-        int femaleOccurrenceCounter = fileReader.compareAllTokens(providedTokens, pathToFemale);
-        int maleOccurrenceCounter = fileReader.compareAllTokens(providedTokens, pathToMale);
+        int femaleOccurrenceCounter = fileReader.compare(providedTokens, pathToFemale);
+        int maleOccurrenceCounter = fileReader.compare(providedTokens, pathToMale);
 
         //Then
         assertEquals(1, femaleOccurrenceCounter);
