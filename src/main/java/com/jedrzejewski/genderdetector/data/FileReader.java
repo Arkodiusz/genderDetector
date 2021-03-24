@@ -12,14 +12,13 @@ public abstract class FileReader {
     private FileInputStream inputStream = null;
     protected Scanner sc = null;
 
-    protected boolean setup(String path) throws FileReaderException {
+    protected void setup(String path) throws FileReaderException {
         try {
             inputStream = new FileInputStream(path);
             sc = new Scanner(inputStream, StandardCharsets.UTF_8);
         } catch (IOException e) {
             throw new FileReaderException("Failed to open input stream on file at " + path);
         }
-        return true;
     }
 
     protected void close() throws FileReaderException {

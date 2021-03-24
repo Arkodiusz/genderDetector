@@ -1,7 +1,6 @@
 package com.jedrzejewski.genderdetector.data;
 
 import com.jedrzejewski.genderdetector.exceptions.FileReaderException;
-import com.jedrzejewski.genderdetector.exceptions.PathExtractorException;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -11,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class FileReaderForComparingTokensTests {
 
     @Test
-    void shouldCountOneOccurrenceInFemaleTokensWhenGivenSingleFemaleToken() throws PathExtractorException, FileReaderException {
+    void shouldCountOneOccurrenceInFemaleTokensWhenGivenSingleFemaleToken() throws FileReaderException {
 
         //Given
         FileReaderForComparingTokens fileReader = new FileReaderForComparingTokens();
@@ -30,7 +29,7 @@ class FileReaderForComparingTokensTests {
     }
 
     @Test
-    void shouldCountOneOccurrenceInMaleTokensWhenGivenSingleMaleToken() throws PathExtractorException, FileReaderException {
+    void shouldCountOneOccurrenceInMaleTokensWhenGivenSingleMaleToken() throws FileReaderException {
 
         //Given
         FileReaderForComparingTokens fileReader = new FileReaderForComparingTokens();
@@ -49,7 +48,7 @@ class FileReaderForComparingTokensTests {
     }
 
     @Test
-    void shouldCountTwoFemaleTokensAndOneMaleInGivenName() throws PathExtractorException, FileReaderException {
+    void shouldCountTwoFemaleTokensAndOneMaleInGivenName() throws FileReaderException {
 
         //Given
         FileReaderForComparingTokens fileReader = new FileReaderForComparingTokens();
@@ -68,7 +67,7 @@ class FileReaderForComparingTokensTests {
     }
 
     @Test
-    void shouldCountOneFemaleTokensAndOneMaleInGivenName() throws PathExtractorException, FileReaderException {
+    void shouldCountOneFemaleTokensAndOneMaleInGivenName() throws FileReaderException {
 
         //Given
         FileReaderForComparingTokens fileReader = new FileReaderForComparingTokens();
@@ -87,7 +86,7 @@ class FileReaderForComparingTokensTests {
     }
 
     @Test
-    void shouldCountZeroFemaleTokensAndZeroMaleTokensWhenOnlyUnknownTokensInGivenName() throws PathExtractorException, FileReaderException {
+    void shouldCountZeroFemaleTokensAndZeroMaleTokensWhenOnlyUnknownTokensInGivenName() throws FileReaderException {
 
         //Given
         FileReaderForComparingTokens fileReader = new FileReaderForComparingTokens();
@@ -106,7 +105,7 @@ class FileReaderForComparingTokensTests {
     }
 
     @Test
-    void shouldIgnoreUpperAndLowerCase() throws PathExtractorException, FileReaderException {
+    void shouldIgnoreUpperAndLowerCase() throws FileReaderException {
 
         //Given
         FileReaderForComparingTokens fileReader = new FileReaderForComparingTokens();
