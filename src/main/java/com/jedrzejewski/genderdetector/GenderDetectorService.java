@@ -4,7 +4,6 @@ import com.jedrzejewski.genderdetector.data.FileReaderForComparingTokens;
 import com.jedrzejewski.genderdetector.data.PathExtractor;
 import com.jedrzejewski.genderdetector.exceptions.FileReaderException;
 import com.jedrzejewski.genderdetector.data.FileReaderForRetrievingTokenList;
-import com.jedrzejewski.genderdetector.exceptions.PathExtractorException;
 import com.jedrzejewski.genderdetector.exceptions.WrongParameterException;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +13,10 @@ import java.util.List;
 @Service
 public class GenderDetectorService {
 
-    private String pathToMaleTokens;
-    private String pathToFemaleTokens;
+    private final String pathToMaleTokens;
+    private final String pathToFemaleTokens;
 
-    public GenderDetectorService() throws PathExtractorException {
+    public GenderDetectorService() {
         PathExtractor pathExtractor = new PathExtractor();
         this.pathToFemaleTokens = pathExtractor.getPathTo("female.txt");
         this.pathToMaleTokens = pathExtractor.getPathTo("male.txt");

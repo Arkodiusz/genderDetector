@@ -1,7 +1,6 @@
 package com.jedrzejewski.genderdetector.data;
 
 import com.jedrzejewski.genderdetector.exceptions.FileReaderException;
-import com.jedrzejewski.genderdetector.exceptions.PathExtractorException;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -13,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class FileReaderForRetrievingTokenListTests {
 
     @Test
-    void shouldReturnListOfFemaleTokens() throws FileReaderException, PathExtractorException {
+    void shouldReturnListOfFemaleTokens() throws FileReaderException {
 
         //Given
         FileReaderForRetrievingTokenList fileReader = new FileReaderForRetrievingTokenList();
@@ -33,7 +32,7 @@ class FileReaderForRetrievingTokenListTests {
     }
 
     @Test
-    void shouldReturnListOfMaleTokens() throws FileReaderException, PathExtractorException {
+    void shouldReturnListOfMaleTokens() throws FileReaderException {
 
         //Given
         FileReaderForRetrievingTokenList fileReader = new FileReaderForRetrievingTokenList();
