@@ -14,40 +14,31 @@ import java.util.List;
 @Service
 public class GenderDetectorService {
 
-    private String pathToMaleTokens;
-    private String pathToFemaleTokens;
-
-    public GenderDetectorService() throws PathExtractorException {
-        PathExtractor pathExtractor = new PathExtractor();
-        this.pathToFemaleTokens = pathExtractor.getPathTo("female.txt");
-        this.pathToMaleTokens = pathExtractor.getPathTo("male.txt");
-    }
-
-    public String detectGender(String name, int variant) throws FileReaderException, WrongParameterException {
-        if (variant == 1) {
-            return detectGenderByComparingCountOfOccurrencesInTokensList(retrieveFirstToken(name));
-        } else if (variant == 2) {
-            return detectGenderByComparingCountOfOccurrencesInTokensList(retrieveAllTokens(name));
+    public String detectGender(String name, String variant) throws FileReaderException, WrongParameterException, PathExtractorException {
+        if (variant.equals("1")) {
+            return countOccurrencesInTokensLists(retrieveFirstToken(name));
+        } else if (variant.equals("2")) {
+            return countOccurrencesInTokensLists(retrieveAllTokens(name));
         }
-        throw new WrongParameterException("Provided variant is out of bounds");
+        throw new WrongParameterException("Provided variant is out of bounds. Available options 1 or 2.");
     }
 
-    public List<String> showTokens(String gender) throws FileReaderException {
+    public List<String> showTokens(String gender) throws FileReaderException, PathExtractorException {
         List<String> tokenList = new ArrayList<>();
         FileReaderForRetrievingTokenList fileReader = new FileReaderForRetrievingTokenList();
 
         if (gender.equals("female")) {
-            tokenList.addAll(fileReader.readFile(pathToFemaleTokens));
+            tokenList.addAll(fileReader.readFile(getPathToFemaleTokens()));
         } else {
-            tokenList.addAll(fileReader.readFile(pathToMaleTokens));
+            tokenList.addAll(fileReader.readFile(getPathToMaleTokens()));
         }
         return tokenList;
     }
 
-    private String detectGenderByComparingCountOfOccurrencesInTokensList(String[] providedTokens) throws FileReaderException {
+    private String countOccurrencesInTokensLists(String[] providedTokens) throws FileReaderException, PathExtractorException {
         FileReaderForComparingTokens fileReader = new FileReaderForComparingTokens();
-        int countOfFemaleTokensInName = fileReader.compare(providedTokens, pathToFemaleTokens);
-        int countOfMaleTokens = fileReader.compare(providedTokens, pathToMaleTokens);
+        int countOfFemaleTokensInName = fileReader.compare(providedTokens, getPathToFemaleTokens());
+        int countOfMaleTokens = fileReader.compare(providedTokens, getPathToMaleTokens());
 
         if (countOfFemaleTokensInName > countOfMaleTokens) return "FEMALE";
         else if (countOfFemaleTokensInName < countOfMaleTokens) return "MALE";
@@ -61,5 +52,15 @@ public class GenderDetectorService {
 
     private String[] retrieveAllTokens(String name) {
         return name.split(" ");
+    }
+
+    private String getPathToFemaleTokens() throws PathExtractorException {
+        PathExtractor pathExtractor = new PathExtractor();
+        return pathExtractor.getPathTo("female.txt");
+    }
+
+    private String getPathToMaleTokens() throws PathExtractorException {
+        PathExtractor pathExtractor = new PathExtractor();
+        return pathExtractor.getPathTo("male.txt");
     }
 }

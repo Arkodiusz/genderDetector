@@ -2,16 +2,14 @@ package com.jedrzejewski.genderdetector.data;
 
 import com.jedrzejewski.genderdetector.exceptions.PathExtractorException;
 
+import java.net.URL;
+
 public class PathExtractor {
 
     public String getPathTo(String fileName) throws PathExtractorException {
         ClassLoader classLoader = getClass().getClassLoader();
-        String path;
-        try {
-            path = classLoader.getResource(fileName).getPath();
-        } catch (NullPointerException e) {
-            throw new PathExtractorException("File \"" + fileName + "\" not found");
-        }
-        return path;
+        URL resource = classLoader.getResource(fileName);
+        if (resource != null) return resource.getPath();
+        throw new PathExtractorException("File \"" + fileName + "\" not found");
     }
 }
