@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class AdviceController {
+public final class AdviceController {
 
     @ExceptionHandler({WrongParameterException.class})
     public ResponseEntity<String> handleWrongParameterException(WrongParameterException e) {
@@ -27,5 +27,12 @@ public class AdviceController {
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(e.getMessage());
+    }
+
+    @ExceptionHandler({FileStreamerException.class})
+    public ResponseEntity<byte[]> handleFileStreamerException(FileStreamerException e) {
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(e.getMessage().getBytes());
     }
 }

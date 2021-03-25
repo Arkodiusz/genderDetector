@@ -4,9 +4,9 @@ import com.jedrzejewski.genderdetector.exceptions.FileReaderException;
 
 import java.io.IOException;
 
-public class FileReaderForComparingTokens extends FileReader {
+public final class FileReaderForComparingTokens extends FileReader {
 
-    public int compare(String[] providedTokens, String path) throws FileReaderException {
+    public int compare(final String[] providedTokens, final String path) throws FileReaderException {
         int occurrenceCounter = 0;
         setup(path);
         try {
