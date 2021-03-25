@@ -4,7 +4,6 @@ import com.jedrzejewski.genderdetector.data.FileReaderForComparingTokens;
 import com.jedrzejewski.genderdetector.data.PathExtractor;
 import com.jedrzejewski.genderdetector.exceptions.FileReaderException;
 import com.jedrzejewski.genderdetector.data.FileReaderForRetrievingTokenList;
-import com.jedrzejewski.genderdetector.exceptions.PathExtractorException;
 import com.jedrzejewski.genderdetector.exceptions.WrongParameterException;
 import org.springframework.stereotype.Service;
 
