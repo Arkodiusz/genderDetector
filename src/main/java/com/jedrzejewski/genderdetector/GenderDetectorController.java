@@ -1,14 +1,13 @@
 package com.jedrzejewski.genderdetector;
 
 import com.jedrzejewski.genderdetector.exceptions.FileReaderException;
+import com.jedrzejewski.genderdetector.exceptions.FileStreamerException;
 import com.jedrzejewski.genderdetector.exceptions.PathExtractorException;
 import com.jedrzejewski.genderdetector.exceptions.WrongParameterException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/gender")
@@ -21,7 +20,9 @@ public class GenderDetectorController {
     }
 
     @GetMapping(value = "{name}")
-    public ResponseEntity<String> detectGender(@PathVariable String name, @RequestParam(defaultValue = "1") String variant)
+    public ResponseEntity<String> detectGender(
+            @PathVariable String name,
+            @RequestParam(defaultValue = "1") String variant)
             throws FileReaderException, WrongParameterException, PathExtractorException {
 
         return ResponseEntity
@@ -29,14 +30,13 @@ public class GenderDetectorController {
                 .body(service.detectGender(name, variant));
     }
 
-    @GetMapping(value = "tokens/{gender}")
-    public List<String> showTokens(@PathVariable String gender) {
-        List<String> tokenList = new ArrayList<>();
-        try {
-            tokenList = service.showTokens(gender);
-        } catch (FileReaderException | PathExtractorException e) {
-            e.printStackTrace();
-        }
-        return tokenList;
+    @GetMapping(value = "tokens/{gender}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public ResponseEntity<byte[]> showTokens(
+            @PathVariable String gender)
+            throws FileStreamerException {
+
+        return ResponseEntity.
+                status(HttpStatus.OK)
+                .body(service.showTokens(gender));
     }
 }

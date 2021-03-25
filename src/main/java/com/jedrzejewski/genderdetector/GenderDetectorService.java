@@ -1,15 +1,13 @@
 package com.jedrzejewski.genderdetector;
 
 import com.jedrzejewski.genderdetector.data.FileReaderForComparingTokens;
-import com.jedrzejewski.genderdetector.data.FileReaderForRetrievingTokenList;
+import com.jedrzejewski.genderdetector.data.FileStreamerForRetrievingTokenList;
 import com.jedrzejewski.genderdetector.data.PathExtractor;
 import com.jedrzejewski.genderdetector.exceptions.FileReaderException;
+import com.jedrzejewski.genderdetector.exceptions.FileStreamerException;
 import com.jedrzejewski.genderdetector.exceptions.PathExtractorException;
 import com.jedrzejewski.genderdetector.exceptions.WrongParameterException;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class GenderDetectorService {
@@ -23,16 +21,9 @@ public class GenderDetectorService {
         throw new WrongParameterException("Provided variant is out of bounds. Available options 1 or 2.");
     }
 
-    public List<String> showTokens(String gender) throws FileReaderException, PathExtractorException {
-        List<String> tokenList = new ArrayList<>();
-        FileReaderForRetrievingTokenList fileReader = new FileReaderForRetrievingTokenList();
-
-        if (gender.equals("female")) {
-            tokenList.addAll(fileReader.readFile(getPathToFemaleTokens()));
-        } else {
-            tokenList.addAll(fileReader.readFile(getPathToMaleTokens()));
-        }
-        return tokenList;
+    public byte[] showTokens(String gender) throws FileStreamerException {
+        FileStreamerForRetrievingTokenList fileStreamer = new FileStreamerForRetrievingTokenList();
+        return fileStreamer.streamFile(gender);
     }
 
     private String countOccurrencesInTokensLists(String[] providedTokens) throws FileReaderException, PathExtractorException {
