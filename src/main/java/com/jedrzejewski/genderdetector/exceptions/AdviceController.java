@@ -28,4 +28,11 @@ public class AdviceController {
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(e.getMessage());
     }
+
+    @ExceptionHandler({FileStreamerException.class})
+    public ResponseEntity<byte[]> handleFileStreamerException(FileStreamerException e) {
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(e.getMessage().getBytes());
+    }
 }

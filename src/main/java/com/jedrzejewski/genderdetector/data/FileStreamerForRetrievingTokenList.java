@@ -10,14 +10,14 @@ public class FileStreamerForRetrievingTokenList {
 
     public byte[] streamFile(String gender) throws FileStreamerException {
         String fileName = gender + ".txt";
-        InputStream input = getClass().getClassLoader().getResourceAsStream(fileName);
-        if (input != null) {
-            try {
+
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream(fileName)) {
+            if (input != null)
                 return IOUtils.toByteArray(input);
-            } catch (IOException e) {
-                throw new FileStreamerException("File streamer could not stream data from file \"" + fileName + "\"");
-            }
+            else
+                throw new FileStreamerException("File streamer could not find file \"" + fileName + "\"");
+        } catch (IOException e) {
+            throw new FileStreamerException("File streamer could not stream data from file \"" + fileName + "\"");
         }
-        return new byte[0];
     }
 }
