@@ -4,7 +4,7 @@ import com.jedrzejewski.genderdetector.exceptions.PathExtractorException;
 
 import java.net.URL;
 
-public class PathExtractor {
+public final class PathExtractor {
 
     public String getPathTo(String fileName) throws PathExtractorException {
         ClassLoader classLoader = getClass().getClassLoader();

@@ -12,7 +12,7 @@ public abstract class FileReader {
     private FileInputStream inputStream = null;
     protected Scanner sc = null;
 
-    protected void setup(String path) throws FileReaderException {
+    protected final void setup(final String path) throws FileReaderException {
         try {
             inputStream = new FileInputStream(path);
             sc = new Scanner(inputStream, StandardCharsets.UTF_8);
@@ -21,7 +21,7 @@ public abstract class FileReader {
         }
     }
 
-    protected void close() throws FileReaderException {
+    protected final void close() throws FileReaderException {
         if (inputStream != null) {
             try {
                 inputStream.close();

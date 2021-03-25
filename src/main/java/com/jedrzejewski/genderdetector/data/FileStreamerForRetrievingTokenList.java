@@ -6,9 +6,9 @@ import org.apache.commons.io.IOUtils;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class FileStreamerForRetrievingTokenList {
+public final class FileStreamerForRetrievingTokenList {
 
-    public byte[] streamFile(String gender) throws FileStreamerException {
+    public byte[] streamFile(final String gender) throws FileStreamerException {
         String fileName = gender + ".txt";
 
         try (InputStream input = getClass().getClassLoader().getResourceAsStream(fileName)) {
