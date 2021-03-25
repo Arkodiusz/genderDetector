@@ -1,11 +1,11 @@
 package com.jedrzejewski.genderdetector;
 
 import com.jedrzejewski.genderdetector.exceptions.FileReaderException;
+import com.jedrzejewski.genderdetector.exceptions.PathExtractorException;
 import com.jedrzejewski.genderdetector.exceptions.WrongParameterException;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,23 +20,21 @@ public class GenderDetectorController {
         this.service = service;
     }
 
-    @GetMapping(value = "detect")
-    public String detectGender(@RequestParam String name, @RequestParam int variant) {
+    @GetMapping(value = "{name}")
+    public ResponseEntity<String> detectGender(@PathVariable String name, @RequestParam(defaultValue = "1") String variant)
+            throws FileReaderException, WrongParameterException, PathExtractorException {
 
-        try {
-            return service.detectGender(name, variant);
-        } catch (FileReaderException | WrongParameterException e) {
-            e.printStackTrace();
-            return "ERROR";
-        }
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(service.detectGender(name, variant));
     }
 
-    @GetMapping(value = "tokens")
-    public List<String> showTokens(@RequestParam String gender) {
+    @GetMapping(value = "tokens/{gender}")
+    public List<String> showTokens(@PathVariable String gender) {
         List<String> tokenList = new ArrayList<>();
         try {
             tokenList = service.showTokens(gender);
-        } catch (FileReaderException e) {
+        } catch (FileReaderException | PathExtractorException e) {
             e.printStackTrace();
         }
         return tokenList;
