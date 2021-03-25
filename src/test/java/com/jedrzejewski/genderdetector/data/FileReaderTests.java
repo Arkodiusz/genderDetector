@@ -1,6 +1,7 @@
 package com.jedrzejewski.genderdetector.data;
 
 import com.jedrzejewski.genderdetector.exceptions.FileReaderException;
+import com.jedrzejewski.genderdetector.exceptions.PathExtractorException;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class FileReaderTests {
 
     @Test
-    void shouldOpenAndCloseInputStreamOnFileWithFemaleTokensWithoutExceptions() {
+    void shouldOpenAndCloseInputStreamOnFileWithFemaleTokensWithoutExceptions() throws PathExtractorException {
 
         //Given
         boolean exception = false;
@@ -31,7 +32,7 @@ class FileReaderTests {
     }
 
     @Test
-    void shouldOpenAndCloseInputStreamOnFileWithMaleTokensWithoutExceptions() {
+    void shouldOpenAndCloseInputStreamOnFileWithMaleTokensWithoutExceptions() throws PathExtractorException {
 
         //Given
         boolean exception = false;
