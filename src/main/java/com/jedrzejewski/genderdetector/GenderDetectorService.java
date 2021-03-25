@@ -10,7 +10,7 @@ import com.jedrzejewski.genderdetector.exceptions.WrongParameterException;
 import org.springframework.stereotype.Service;
 
 @Service
-public final class GenderDetectorService {
+public class GenderDetectorService {
 
     public String detectGender(String name, String variant) throws FileReaderException, WrongParameterException, PathExtractorException {
         if (variant.equals("1")) {
