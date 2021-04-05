@@ -1,6 +1,8 @@
-package com.jedrzejewski.genderdetector.data;
+package com.jedrzejewski.genderdetector.algorithm;
 
 import com.jedrzejewski.genderdetector.Gender;
+import com.jedrzejewski.genderdetector.data.FileReaderForCountingOccurrences;
+import com.jedrzejewski.genderdetector.data.PathExtractor;
 import org.springframework.stereotype.Component;
 
 import static com.jedrzejewski.genderdetector.Gender.*;

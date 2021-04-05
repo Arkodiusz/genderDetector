@@ -1,7 +1,7 @@
 package com.jedrzejewski.genderdetector;
 
 import com.jedrzejewski.genderdetector.data.FileStreamerForRetrievingTokenList;
-import com.jedrzejewski.genderdetector.data.ComparatorOfOccurrencesNumber;
+import com.jedrzejewski.genderdetector.algorithm.ComparatorOfOccurrencesNumber;
 import com.jedrzejewski.genderdetector.exceptions.WrongParameterException;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class GenderDetectorService {
 
     final ComparatorOfOccurrencesNumber comparatorOfOccurrencesNumber;
-    FileStreamerForRetrievingTokenList fileStreamer;
+    final FileStreamerForRetrievingTokenList fileStreamer;
 
     public GenderDetectorService(ComparatorOfOccurrencesNumber comparatorOfOccurrencesNumber, FileStreamerForRetrievingTokenList fileStreamer) {
         this.comparatorOfOccurrencesNumber = comparatorOfOccurrencesNumber;
@@ -28,8 +28,4 @@ public class GenderDetectorService {
     public byte[] showTokens(String gender) {
         return fileStreamer.streamFile(gender);
     }
-
-
-
-
 }
