@@ -16,13 +16,11 @@ public class GenderDetectorController {
     }
 
     @GetMapping(value = "{name}")
-    public ResponseEntity<String> detectGender(
+    public String detectGender(
             @PathVariable String name,
             @RequestParam(defaultValue = "1") String variant) {
 
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(service.detectGender(name, variant));
+        return service.detectGender(name, variant);
     }
 
     @GetMapping(value = "tokens/{gender}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
