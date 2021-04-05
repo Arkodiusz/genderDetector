@@ -3,6 +3,8 @@ package com.jedrzejewski.genderdetector;
 import com.jedrzejewski.genderdetector.exceptions.FileStreamerException;
 import com.jedrzejewski.genderdetector.exceptions.WrongParameterException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -14,123 +16,38 @@ class GenderDetectorServiceTests {
     @Autowired
     GenderDetectorService service;
 
-    @Test
-    void shouldReturnMale_whenUsingVariant1_andFirstTokenIsMale() {
-        //Given
-        String name = "Jan Maria Rokita";
-        String variant = "1";
-
-        //When
+    @ParameterizedTest
+    @CsvSource({
+            "Jan Maria Rokita, 1, MALE",
+            "Jan Maria Rokita, 2, INCONCLUSIVE",
+            "Anna Zbigniew Gertruda, 1, FEMALE",
+            "Anna Zbigniew Gertruda, 2, FEMALE",
+            "Anna Zbigniew Gertruda Jan, 2, INCONCLUSIVE",
+            "Ania, 1, INCONCLUSIVE",
+            "Ania Basia Tomek, 2, INCONCLUSIVE",
+            "Tomek Jan, 2, MALE",
+            "Tomek Jan, 1, INCONCLUSIVE",
+    })
+    void shouldReturnMale_whenUsingVariant1_andFirstTokenIsMale(String name, String variant, String expected) {
+        //Given & When
         Gender response = service.detectGender(name, variant);
+
+        //Then
+        assertEquals(expected, response.getName());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "Jan Maria Rokita",
+            "Tomasz"
+    })
+    void shouldReturnMale_whenUsingVariant1_andFirstTokenIsMale(String name) {
+        //Given & When
+        Gender response = service.detectGender(name, "1");
 
         //Then
         assertEquals(Gender.MALE, response);
     }
-
-    @Test
-    void shouldReturnInconclusive_whenUsingVariant2_andThereAreOneMaleAndOneFemaleToken() {
-        //Given
-        String name = "Jan Maria Rokita";
-        String variant = "2";
-
-        //When
-        Gender response = service.detectGender(name, variant);
-
-        //Then
-        assertEquals(Gender.INCONCLUSIVE, response);
-    }
-
-    @Test
-    void shouldReturnFemale_whenUsingVariant1_andFirstTokenIsFemale() {
-        //Given
-        String name = "Anna Zbigniew Gertruda";
-        String variant = "1";
-
-        //When
-        Gender response = service.detectGender(name, variant);
-
-        //Then
-        assertEquals(Gender.FEMALE, response);
-    }
-
-    @Test
-    void shouldReturnFemale_whenUsingVariant2_andThereAreOneMaleAndTwoFemaleToken() {
-        //Given
-        String name = "Anna Zbigniew Gertruda";
-        String variant = "2";
-
-        //When
-        Gender response = service.detectGender(name, variant);
-
-        //Then
-        assertEquals(Gender.FEMALE, response);
-    }
-
-    @Test
-    void shouldReturnInconclusive_whenUsingVariant2_andThereAreTwoMaleAndTwoFemaleToken() {
-        //Given
-        String name = "Anna Zbigniew Gertruda Jan";
-        String variant = "2";
-
-        //When
-        Gender response = service.detectGender(name, variant);
-
-        //Then
-        assertEquals(Gender.INCONCLUSIVE, response);
-    }
-
-    @Test
-    void shouldReturnInconclusive_whenUsingVariant1_andTokenIsUnknown() {
-        //Given
-        String name = "Ania";
-        String variant = "1";
-
-        //When
-        Gender response = service.detectGender(name, variant);
-
-        //Then
-        assertEquals(Gender.INCONCLUSIVE, response);
-    }
-
-    @Test
-    void shouldReturnInconclusive_whenUsingVariant2_andTokensAreUnknown() {
-        //Given
-        String name = "Ania Basia Tomek";
-        String variant = "2";
-
-        //When
-        Gender response = service.detectGender(name, variant);
-
-        //Then
-        assertEquals(Gender.INCONCLUSIVE, response);
-    }
-
-    @Test
-    void shouldReturnMale_whenUsingVariant2_andFirstTokenIsUnknownAndSecondMale() {
-        //Given
-        String name = "Tomek Jan";
-        String variant = "2";
-
-        //When
-        Gender response = service.detectGender(name, variant);
-
-        //Then
-        assertEquals(Gender.MALE, response);
-    }
-
-    @Test
-    void shouldReturnInconclusive_whenUsingVariant1_andFirstTokenIsUnknownAndSecondMale() {
-        //Given
-        String name = "Tomek Jan";
-        String variant = "1";
-
-        //When
-        Gender response = service.detectGender(name, variant);
-
-        //Then
-        assertEquals(Gender.INCONCLUSIVE, response);
-    }
-
 
     @Test
     void shouldThrowException_whenWrongParameterIsUsed() {
