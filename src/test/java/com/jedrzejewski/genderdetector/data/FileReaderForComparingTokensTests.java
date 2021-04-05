@@ -1,22 +1,28 @@
 package com.jedrzejewski.genderdetector.data;
 
-import com.jedrzejewski.genderdetector.exceptions.FileReaderException;
-import com.jedrzejewski.genderdetector.exceptions.PathExtractorException;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static com.jedrzejewski.genderdetector.data.PathExtractor.FEMALE_TOKENS;
+import static com.jedrzejewski.genderdetector.data.PathExtractor.MALE_TOKENS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class FileReaderForComparingTokensTests {
 
+    @Autowired
+    PathExtractor pathExtractor;
+
+    @Autowired
+    FileReaderForComparingTokens fileReader;
+
     @Test
-    void shouldCountOneOccurrenceInFemaleTokensWhenGivenSingleFemaleToken() throws FileReaderException, PathExtractorException {
+    void shouldCountOneOccurrenceInFemaleTokensWhenGivenSingleFemaleToken() {
 
         //Given
-        FileReaderForComparingTokens fileReader = new FileReaderForComparingTokens();
-        String pathToMale = new PathExtractor().getPathTo("male.txt");
-        String pathToFemale = new PathExtractor().getPathTo("female.txt");
+        String pathToMale = pathExtractor.getPathTo(MALE_TOKENS);
+        String pathToFemale = pathExtractor.getPathTo(FEMALE_TOKENS);
 
         String[] providedTokens = {"Maria"};
 
@@ -30,12 +36,11 @@ class FileReaderForComparingTokensTests {
     }
 
     @Test
-    void shouldCountOneOccurrenceInMaleTokensWhenGivenSingleMaleToken() throws FileReaderException, PathExtractorException {
+    void shouldCountOneOccurrenceInMaleTokensWhenGivenSingleMaleToken() {
 
         //Given
-        FileReaderForComparingTokens fileReader = new FileReaderForComparingTokens();
-        String pathToMale = new PathExtractor().getPathTo("male.txt");
-        String pathToFemale = new PathExtractor().getPathTo("female.txt");
+        String pathToMale = pathExtractor.getPathTo(MALE_TOKENS);
+        String pathToFemale = pathExtractor.getPathTo(FEMALE_TOKENS);
 
         String[] providedTokens = {"Jan"};
 
@@ -49,12 +54,11 @@ class FileReaderForComparingTokensTests {
     }
 
     @Test
-    void shouldCountTwoFemaleTokensAndOneMaleInGivenName() throws FileReaderException, PathExtractorException {
+    void shouldCountTwoFemaleTokensAndOneMaleInGivenName() {
 
         //Given
-        FileReaderForComparingTokens fileReader = new FileReaderForComparingTokens();
-        String pathToMale = new PathExtractor().getPathTo("male.txt");
-        String pathToFemale = new PathExtractor().getPathTo("female.txt");
+        String pathToMale = pathExtractor.getPathTo(MALE_TOKENS);
+        String pathToFemale = pathExtractor.getPathTo(FEMALE_TOKENS);
 
         String[] providedTokens = {"Anna", "Zbigniew", "Gertruda"};
 
@@ -68,12 +72,11 @@ class FileReaderForComparingTokensTests {
     }
 
     @Test
-    void shouldCountOneFemaleTokensAndOneMaleInGivenName() throws FileReaderException, PathExtractorException {
+    void shouldCountOneFemaleTokensAndOneMaleInGivenName() {
 
         //Given
-        FileReaderForComparingTokens fileReader = new FileReaderForComparingTokens();
-        String pathToMale = new PathExtractor().getPathTo("male.txt");
-        String pathToFemale = new PathExtractor().getPathTo("female.txt");
+        String pathToMale = pathExtractor.getPathTo(MALE_TOKENS);
+        String pathToFemale = pathExtractor.getPathTo(FEMALE_TOKENS);
 
         String[] providedTokens = {"Jan", "Maria", "Rokita"};
 
@@ -87,12 +90,11 @@ class FileReaderForComparingTokensTests {
     }
 
     @Test
-    void shouldCountZeroFemaleTokensAndZeroMaleTokensWhenOnlyUnknownTokensInGivenName() throws FileReaderException, PathExtractorException {
+    void shouldCountZeroFemaleTokensAndZeroMaleTokensWhenOnlyUnknownTokensInGivenName() {
 
         //Given
-        FileReaderForComparingTokens fileReader = new FileReaderForComparingTokens();
-        String pathToMale = new PathExtractor().getPathTo("male.txt");
-        String pathToFemale = new PathExtractor().getPathTo("female.txt");
+        String pathToMale = pathExtractor.getPathTo(MALE_TOKENS);
+        String pathToFemale = pathExtractor.getPathTo(FEMALE_TOKENS);
 
         String[] providedTokens = {"Janek", "Tomek", "Olka"};
 
@@ -106,12 +108,11 @@ class FileReaderForComparingTokensTests {
     }
 
     @Test
-    void shouldIgnoreUpperAndLowerCase() throws FileReaderException, PathExtractorException {
+    void shouldIgnoreUpperAndLowerCase() {
 
         //Given
-        FileReaderForComparingTokens fileReader = new FileReaderForComparingTokens();
-        String pathToMale = new PathExtractor().getPathTo("male.txt");
-        String pathToFemale = new PathExtractor().getPathTo("female.txt");
+        String pathToMale = pathExtractor.getPathTo(MALE_TOKENS);
+        String pathToFemale = pathExtractor.getPathTo(FEMALE_TOKENS);
 
         String[] providedTokens = {"JAN", "maRiA", "Rokita"};
 

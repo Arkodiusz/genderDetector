@@ -1,32 +1,36 @@
 package com.jedrzejewski.genderdetector.data;
 
 import com.jedrzejewski.genderdetector.exceptions.FileReaderException;
+import org.springframework.stereotype.Component;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
 
-public final class FileReaderForComparingTokens extends FileReader {
+@Component
+public final class FileReaderForComparingTokens {
 
-    public int compare(final String[] providedTokens, final String path) throws FileReaderException {
-        int occurrenceCounter = 0;
-        setup(path);
-        try {
-            while (sc.hasNextLine()) {
-                String line = sc.nextLine();
-                for (String providedToken : providedTokens) {
-                    if (line.equalsIgnoreCase(providedToken)) {
-                        occurrenceCounter++;
-                        break;
+    public int compare(final String[] providedTokens, final String path) {
+
+        try (FileInputStream inputStream = new FileInputStream(path)) {
+            int occurrenceCounter = 0;
+
+            try (Scanner sc = new Scanner(inputStream, StandardCharsets.UTF_8)) {
+                while (sc.hasNextLine()) {
+                    String line = sc.nextLine();
+                    for (String providedToken : providedTokens) {
+                        if (line.equalsIgnoreCase(providedToken)) {
+                            occurrenceCounter++;
+                            break;
+                        }
                     }
                 }
             }
-            if (sc.ioException() != null) {
-                throw sc.ioException();
-            }
+            return occurrenceCounter;
+
         } catch (IOException e) {
-            throw new FileReaderException("Failed to read data from file at " + path);
-        } finally {
-            close();
+            throw new FileReaderException(FileReaderException.ERR_FILE_SCANNING);
         }
-        return occurrenceCounter;
     }
 }

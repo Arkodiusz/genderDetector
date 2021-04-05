@@ -1,9 +1,5 @@
 package com.jedrzejewski.genderdetector;
 
-import com.jedrzejewski.genderdetector.exceptions.FileReaderException;
-import com.jedrzejewski.genderdetector.exceptions.FileStreamerException;
-import com.jedrzejewski.genderdetector.exceptions.PathExtractorException;
-import com.jedrzejewski.genderdetector.exceptions.WrongParameterException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +18,7 @@ public class GenderDetectorController {
     @GetMapping(value = "{name}")
     public ResponseEntity<String> detectGender(
             @PathVariable String name,
-            @RequestParam(defaultValue = "1") String variant)
-            throws FileReaderException, WrongParameterException, PathExtractorException {
+            @RequestParam(defaultValue = "1") String variant) {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -32,8 +27,7 @@ public class GenderDetectorController {
 
     @GetMapping(value = "tokens/{gender}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity<byte[]> showTokens(
-            @PathVariable String gender)
-            throws FileStreamerException {
+            @PathVariable String gender) {
 
         return ResponseEntity.
                 status(HttpStatus.OK)
