@@ -9,9 +9,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 @Component
-public final class FileReaderForComparingTokens {
+public final class FileReaderForCountingOccurrences {
 
-    public int compare(final String[] providedTokens, final String path) {
+    public int countOccurrence(final String[] providedTokens, final String path) {
 
         try (FileInputStream inputStream = new FileInputStream(path)) {
             int occurrenceCounter = 0;

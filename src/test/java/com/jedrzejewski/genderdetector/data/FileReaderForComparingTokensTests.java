@@ -15,7 +15,7 @@ class FileReaderForComparingTokensTests {
     PathExtractor pathExtractor;
 
     @Autowired
-    FileReaderForComparingTokens fileReader;
+    FileReaderForCountingOccurrences fileReader;
 
     @Test
     void shouldCountOneOccurrenceInFemaleTokensWhenGivenSingleFemaleToken() {
@@ -27,8 +27,8 @@ class FileReaderForComparingTokensTests {
         String[] providedTokens = {"Maria"};
 
         //When
-        int femaleOccurrenceCounter = fileReader.compare(providedTokens, pathToFemale);
-        int maleOccurrenceCounter = fileReader.compare(providedTokens, pathToMale);
+        int femaleOccurrenceCounter = fileReader.countOccurrence(providedTokens, pathToFemale);
+        int maleOccurrenceCounter = fileReader.countOccurrence(providedTokens, pathToMale);
 
         //Then
         assertEquals(1, femaleOccurrenceCounter);
@@ -45,8 +45,8 @@ class FileReaderForComparingTokensTests {
         String[] providedTokens = {"Jan"};
 
         //When
-        int femaleOccurrenceCounter = fileReader.compare(providedTokens, pathToFemale);
-        int maleOccurrenceCounter = fileReader.compare(providedTokens, pathToMale);
+        int femaleOccurrenceCounter = fileReader.countOccurrence(providedTokens, pathToFemale);
+        int maleOccurrenceCounter = fileReader.countOccurrence(providedTokens, pathToMale);
 
         //Then
         assertEquals(0, femaleOccurrenceCounter);
@@ -63,8 +63,8 @@ class FileReaderForComparingTokensTests {
         String[] providedTokens = {"Anna", "Zbigniew", "Gertruda"};
 
         //When
-        int femaleOccurrenceCounter = fileReader.compare(providedTokens, pathToFemale);
-        int maleOccurrenceCounter = fileReader.compare(providedTokens, pathToMale);
+        int femaleOccurrenceCounter = fileReader.countOccurrence(providedTokens, pathToFemale);
+        int maleOccurrenceCounter = fileReader.countOccurrence(providedTokens, pathToMale);
 
         //Then
         assertEquals(2, femaleOccurrenceCounter);
@@ -81,8 +81,8 @@ class FileReaderForComparingTokensTests {
         String[] providedTokens = {"Jan", "Maria", "Rokita"};
 
         //When
-        int femaleOccurrenceCounter = fileReader.compare(providedTokens, pathToFemale);
-        int maleOccurrenceCounter = fileReader.compare(providedTokens, pathToMale);
+        int femaleOccurrenceCounter = fileReader.countOccurrence(providedTokens, pathToFemale);
+        int maleOccurrenceCounter = fileReader.countOccurrence(providedTokens, pathToMale);
 
         //Then
         assertEquals(1, femaleOccurrenceCounter);
@@ -99,8 +99,8 @@ class FileReaderForComparingTokensTests {
         String[] providedTokens = {"Janek", "Tomek", "Olka"};
 
         //When
-        int femaleOccurrenceCounter = fileReader.compare(providedTokens, pathToFemale);
-        int maleOccurrenceCounter = fileReader.compare(providedTokens, pathToMale);
+        int femaleOccurrenceCounter = fileReader.countOccurrence(providedTokens, pathToFemale);
+        int maleOccurrenceCounter = fileReader.countOccurrence(providedTokens, pathToMale);
 
         //Then
         assertEquals(0, femaleOccurrenceCounter);
@@ -117,8 +117,8 @@ class FileReaderForComparingTokensTests {
         String[] providedTokens = {"JAN", "maRiA", "Rokita"};
 
         //When
-        int femaleOccurrenceCounter = fileReader.compare(providedTokens, pathToFemale);
-        int maleOccurrenceCounter = fileReader.compare(providedTokens, pathToMale);
+        int femaleOccurrenceCounter = fileReader.countOccurrence(providedTokens, pathToFemale);
+        int maleOccurrenceCounter = fileReader.countOccurrence(providedTokens, pathToMale);
 
         //Then
         assertEquals(1, femaleOccurrenceCounter);

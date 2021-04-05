@@ -1,5 +1,6 @@
 package com.jedrzejewski.genderdetector;
 
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -26,70 +27,70 @@ class GenderDetectorControllerTests {
     void shouldReturnMaleWhenDetectingWithFirstVariant() throws Exception {
 
         // Given
-        when(service.detectGender("Jan Maria Rokita", "1")).thenReturn("MALE");
+        when(service.detectGender("Jan Maria Rokita", "1")).thenReturn(Gender.MALE);
 
         //When & Then
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/api/gender/Jan Maria Rokita?variant=1")
                 .contentType(MediaType.ALL))
-                .andExpect(MockMvcResultMatchers.status().is(200)) // or isOk()
-                .andExpect(MockMvcResultMatchers.content().string("MALE"));
+                .andExpect(MockMvcResultMatchers.status().is(200))
+                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.is(Gender.MALE.getName())));
     }
 
     @Test
     void shouldReturnFemaleWhenDetectingWithFirstVariant() throws Exception {
 
         // Given
-        when(service.detectGender("Anna Zbigniew Gertruda", "1")).thenReturn("FEMALE");
+        when(service.detectGender("Anna Zbigniew Gertruda", "1")).thenReturn(Gender.FEMALE);
 
         //When & Then
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/api/gender/Anna Zbigniew Gertruda?variant=1")
                 .contentType(MediaType.ALL))
-                .andExpect(MockMvcResultMatchers.status().is(200)) // or isOk()
-                .andExpect(MockMvcResultMatchers.content().string("FEMALE"));
+                .andExpect(MockMvcResultMatchers.status().is(200))
+                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.is(Gender.FEMALE.getName())));
     }
 
     @Test
     void shouldReturnMaleWhenDetectingWithSecondVariant() throws Exception {
 
         // Given
-        when(service.detectGender("Jan Maria Rokita", "2")).thenReturn("INCONCLUSIVE");
+        when(service.detectGender("Jan Maria Rokita", "2")).thenReturn(Gender.INCONCLUSIVE);
 
         //When & Then
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/api/gender/Jan Maria Rokita?variant=2")
                 .contentType(MediaType.ALL))
                 .andExpect(MockMvcResultMatchers.status().is(200))
-                .andExpect(MockMvcResultMatchers.content().string("INCONCLUSIVE"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.is(Gender.INCONCLUSIVE.getName())));
     }
 
     @Test
     void shouldReturnFemaleWhenDetectingWithSecondVariant() throws Exception {
 
         // Given
-        when(service.detectGender("Anna Zbigniew Gertruda", "2")).thenReturn("FEMALE");
+        when(service.detectGender("Anna Zbigniew Gertruda", "2")).thenReturn(Gender.FEMALE);
 
         //When & Then
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/api/gender/Anna Zbigniew Gertruda?variant=2")
                 .contentType(MediaType.ALL))
                 .andExpect(MockMvcResultMatchers.status().is(200))
-                .andExpect(MockMvcResultMatchers.content().string("FEMALE"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.is(Gender.FEMALE.getName())));
     }
 
     @Test
     void shouldUseFirstVariantWhenParameterNotProvided() throws Exception {
 
         // Given
-        when(service.detectGender("Jan Maria Rokita", "1")).thenReturn("MALE");
+        when(service.detectGender("Jan Maria Rokita", "1")).thenReturn(Gender.MALE);
 
         //When & Then
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/api/gender/Jan Maria Rokita")
                 .contentType(MediaType.ALL))
-                .andExpect(MockMvcResultMatchers.status().is(200)) // or isOk()
-                .andExpect(MockMvcResultMatchers.content().string("MALE"));
+                .andExpect(MockMvcResultMatchers.status().is(200))
+                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.is(Gender.MALE.getName())));
     }
 
     @Test

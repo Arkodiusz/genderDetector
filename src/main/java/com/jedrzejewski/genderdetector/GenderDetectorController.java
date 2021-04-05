@@ -15,8 +15,8 @@ public class GenderDetectorController {
         this.service = service;
     }
 
-    @GetMapping(value = "{name}")
-    public String detectGender(
+    @GetMapping(value = "{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Gender detectGender(
             @PathVariable String name,
             @RequestParam(defaultValue = "1") String variant) {
 
