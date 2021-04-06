@@ -35,9 +35,13 @@ public final class ComparatorOfOccurrencesNumber {
         int countOfFemaleTokensInName = fileReader.countOccurrence(providedTokens, femaleTokens);
         int countOfMaleTokens = fileReader.countOccurrence(providedTokens, maleTokens);
 
-        if (countOfFemaleTokensInName > countOfMaleTokens) return FEMALE;
-        else if (countOfFemaleTokensInName < countOfMaleTokens) return MALE;
-        else return INCONCLUSIVE;
+        if (countOfFemaleTokensInName > countOfMaleTokens) {
+            return FEMALE;
+        } else if (countOfFemaleTokensInName < countOfMaleTokens) {
+            return MALE;
+        } else {
+            return INCONCLUSIVE;
+        }
     }
 
     private String[] retrieveFirstToken(String name) {
