@@ -30,25 +30,25 @@ The name you want to run the algorithm with
 ##### QUERY PARAMETERS
 String variant
 Specifying the mode of performed action. 
-Avaiable values are "1" or "2".
+Available values are "1" or "2".
 Default value is 1.
  
  
 * #### SHOW TOKENS
 GET /api/gender/tokens/{gender}
  
-Returns list of all avaiable tokens of chosen gender.
+Returns list of all available tokens of chosen gender.
  
 ##### PATH PARAMETER
 String gender
 Specifying which token should be listed. 
-Avaiable values are "male" or "female".
+Available values are "male" or "female".
  
  
  
 ## Information
-* Avaiable tokens lists are provided as *.txt files. Encoding is set to UTF-8, and this charset should be set in your IDE when working with code.
-* Token lists do not contains names with Polish characters
+* Available tokens lists are provided as *.txt files. Encoding is set to UTF-8, and this charset should be set in your IDE when working with code.
+* Token lists do not contain names with Polish characters
  
  
  

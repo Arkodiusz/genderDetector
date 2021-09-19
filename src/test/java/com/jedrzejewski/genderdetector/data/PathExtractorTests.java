@@ -2,24 +2,29 @@ package com.jedrzejewski.genderdetector.data;
 
 import com.jedrzejewski.genderdetector.exceptions.PathExtractorException;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static com.jedrzejewski.genderdetector.data.PathExtractor.FEMALE_TOKENS;
+import static com.jedrzejewski.genderdetector.data.PathExtractor.MALE_TOKENS;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class PathExtractorTests {
 
+    @Autowired
+    PathExtractor pathExtractor;
+
     @Test
     void shouldExtractPathToFileWithFemaleTokens() {
 
         //Given
-        PathExtractor pathExtractor = new PathExtractor();
         String path = "";
         boolean exception = false;
 
         //When
         try {
-            path = pathExtractor.getPathTo("female.txt");
+            path = pathExtractor.getPathTo(FEMALE_TOKENS);
         } catch (PathExtractorException e) {
             e.printStackTrace();
             exception = true;
@@ -34,13 +39,12 @@ class PathExtractorTests {
     void shouldExtractPathToFileWithMaleTokens() {
 
         //Given
-        PathExtractor pathExtractor = new PathExtractor();
         String path = "";
         boolean exception = false;
 
         //When
         try {
-            path = pathExtractor.getPathTo("male.txt");
+            path = pathExtractor.getPathTo(MALE_TOKENS);
         } catch (PathExtractorException e) {
             e.printStackTrace();
             exception = true;
@@ -49,22 +53,5 @@ class PathExtractorTests {
         //Then
         assertNotEquals("", path);
         assertFalse(exception);
-    }
-
-    @Test
-    void shouldThrowPathExtractorException() {
-
-        //Given
-        PathExtractor pathExtractor = new PathExtractor();
-        String fileName = "notExistingFile";
-
-        //When
-        Exception exception = assertThrows(PathExtractorException.class, () -> pathExtractor.getPathTo(fileName));
-
-        String expectedMessage = "File \"" + fileName + "\" not found";
-        String actualMessage = exception.getMessage();
-
-        //Then
-        assertTrue(actualMessage.contains(expectedMessage));
     }
 }
