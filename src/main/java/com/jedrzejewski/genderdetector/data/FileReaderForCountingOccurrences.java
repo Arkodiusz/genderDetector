@@ -18,13 +18,8 @@ public final class FileReaderForCountingOccurrences {
 
             try (Scanner sc = new Scanner(inputStream, StandardCharsets.UTF_8)) {
                 while (sc.hasNextLine()) {
-                    String line = sc.nextLine();
-                    for (String providedToken : providedTokens) {
-                        if (line.equalsIgnoreCase(providedToken)) {
-                            occurrenceCounter++;
-                            break;
-                        }
-                    }
+                    boolean containsName = tokensContainsName(providedTokens, sc.nextLine());
+                    occurrenceCounter += containsName ? 1 : 0;
                 }
             }
             return occurrenceCounter;
@@ -32,5 +27,15 @@ public final class FileReaderForCountingOccurrences {
         } catch (IOException e) {
             throw new FileReaderException(FileReaderException.ERR_FILE_SCANNING);
         }
+    }
+
+    private boolean tokensContainsName(String[] name, String line) {
+
+        for (String providedToken : name) {
+            if (line.equalsIgnoreCase(providedToken)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

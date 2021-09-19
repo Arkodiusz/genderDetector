@@ -19,7 +19,7 @@ class GenderDetectorServiceTests {
     @ParameterizedTest
     @CsvSource({
             "Jan Maria Rokita, 1, MALE",
-            "Jan Maria Rokita, 2, INCONCLUSIVE",
+            "Jan Jan Maria Maria, 2, INCONCLUSIVE",
             "Anna Zbigniew Gertruda, 1, FEMALE",
             "Anna Zbigniew Gertruda, 2, FEMALE",
             "Anna Zbigniew Gertruda Jan, 2, INCONCLUSIVE",
