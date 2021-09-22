@@ -13,7 +13,7 @@ public class GenderDetectorController {
     }
 
     @GetMapping(value = "/gender/{name}")
-    public String detectGender(
+    public ResponseDTO detectGender(
             @PathVariable String name,
             @RequestParam(defaultValue = "1") String variant) {
 

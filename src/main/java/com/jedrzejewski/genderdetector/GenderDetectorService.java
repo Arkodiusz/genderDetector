@@ -11,16 +11,15 @@ public class GenderDetectorService {
 
     private final TokenService tokenService;
 
-    public String detectGender(String name, String variant)  {
-        if (variant.equals("1")) {
-            return countOccurrencesInTokensLists(retrieveFirstToken(name));
-        } else if (variant.equals("2")) {
+    public ResponseDTO detectGender(String name, String variant)  {
+        if (variant.equals("2")) {
             return countOccurrencesInTokensLists(retrieveAllTokens(name));
+        } else {
+            return countOccurrencesInTokensLists(retrieveFirstToken(name));
         }
-        return "";
     }
 
-    private String countOccurrencesInTokensLists(String[] providedTokens) {
+    private ResponseDTO countOccurrencesInTokensLists(String[] providedTokens) {
 
         AtomicInteger maleCount = new AtomicInteger(0);
         AtomicInteger femaleCount = new AtomicInteger(0);
@@ -45,9 +44,30 @@ public class GenderDetectorService {
                     }
                 });
 
-        if (femaleCount.get() > maleCount.get()) return "FEMALE m:f" + maleCount.get() + " : " + femaleCount.get();
-        else if (femaleCount.get() < maleCount.get()) return "MALE m:f" + maleCount.get() + " : " + femaleCount.get();
-        else return "INCONCLUSIVE m:f" + maleCount.get() + " : " + femaleCount.get();
+        int length = providedTokens.length;
+        double percentage;
+        int inconclusiveCount = length-maleCount.get()-femaleCount.get();
+
+        String designation;
+
+        if (femaleCount.get() > maleCount.get()) {
+            designation = "FEMALE";
+            percentage = ((double)femaleCount.get()/length)*100;
+        } else if (femaleCount.get() < maleCount.get()) {
+            designation = "MALE";
+            percentage = ((double)maleCount.get()/length)*100;
+        } else {
+            designation = "INCONCLUSIVE";
+            percentage = ((double)inconclusiveCount/length)/100;
+        }
+
+        return new ResponseDTO(
+                designation,
+                maleCount.get(),
+                femaleCount.get(),
+                inconclusiveCount,
+                percentage
+        );
     }
 
     private String[] retrieveFirstToken(String name) {
