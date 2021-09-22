@@ -11,8 +11,7 @@ public class TokenMapper {
         return new Token(
                 tokenDto.getId(),
                 tokenDto.getName(),
-                tokenDto.getGender(),
-                tokenDto.getNation()
+                tokenDto.getGender()
         );
     }
 
@@ -20,8 +19,7 @@ public class TokenMapper {
         return new TokenDto(
                 token.getId(),
                 token.getName(),
-                token.getGender(),
-                token.getNation()
+                token.getGender()
         );
     }
 

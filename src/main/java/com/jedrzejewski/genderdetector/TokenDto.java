@@ -11,5 +11,4 @@ public class TokenDto {
     private Long id;
     private String name;
     private char gender;
-    private String nation;
 }

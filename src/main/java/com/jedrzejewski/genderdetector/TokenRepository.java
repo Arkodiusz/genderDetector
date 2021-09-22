@@ -22,7 +22,4 @@ public interface TokenRepository extends CrudRepository<Token, Long> {
 
     @Query(nativeQuery = true)
     List<Token> retrieveByGender(@Param("gender") char gender);
-
-    @Query(nativeQuery = true)
-    List<Token> retrieveByNation(@Param("nation") String nation);
 }

@@ -1,10 +1,5 @@
 package com.jedrzejewski.genderdetector;
 
-import com.jedrzejewski.genderdetector.exceptions.FileReaderException;
-import com.jedrzejewski.genderdetector.exceptions.PathExtractorException;
-import com.jedrzejewski.genderdetector.exceptions.WrongParameterException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,13 +13,10 @@ public class GenderDetectorController {
     }
 
     @GetMapping(value = "/gender/{name}")
-    public ResponseEntity<String> detectGender(
+    public String detectGender(
             @PathVariable String name,
-            @RequestParam(defaultValue = "1") String variant)
-            throws FileReaderException, WrongParameterException, PathExtractorException {
+            @RequestParam(defaultValue = "1") String variant) {
 
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(service.detectGender(name, variant));
+        return service.detectGender(name, variant);
     }
 }

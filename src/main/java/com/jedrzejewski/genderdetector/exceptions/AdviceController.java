@@ -8,31 +8,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public final class AdviceController {
 
-    @ExceptionHandler({WrongParameterException.class})
-    public ResponseEntity<String> handleWrongParameterException(WrongParameterException e) {
+    @ExceptionHandler({TokenNotFoundException.class})
+    public ResponseEntity<String> handleTokenNotFoundException(TokenNotFoundException e) {
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(e.getMessage());
-    }
-
-    @ExceptionHandler({FileReaderException.class})
-    public ResponseEntity<String> handleFileReaderException(FileReaderException e) {
-        return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(e.getMessage());
-    }
-
-    @ExceptionHandler({PathExtractorException.class})
-    public ResponseEntity<String> handlePathExtractorException(PathExtractorException e) {
-        return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(e.getMessage());
-    }
-
-    @ExceptionHandler({FileStreamerException.class})
-    public ResponseEntity<byte[]> handleFileStreamerException(FileStreamerException e) {
-        return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(e.getMessage().getBytes());
     }
 }

@@ -31,7 +31,6 @@ public class TokenService {
         if(!newToken.getName().isEmpty()) {
             oldToken.setName(newToken.getName());
             oldToken.setGender(newToken.getGender());
-            oldToken.setNation(newToken.getNation());
         }
         return tokenRepository.save(newToken);
     }
@@ -46,10 +45,6 @@ public class TokenService {
 
     public List<Token> getFemaleTokens() {
         return tokenRepository.retrieveByGender('f');
-    }
-
-    public List<Token> getTokensByNation(String nation) {
-        return tokenRepository.retrieveByNation(nation);
     }
 }
 

@@ -11,11 +11,6 @@ import javax.validation.constraints.NotNull;
         query = "SELECT * FROM TOKENS WHERE GENDER = :gender",
         resultClass = Token.class
 )
-@NamedNativeQuery(
-        name = "Token.retrieveByNation",
-        query = "SELECT * FROM TOKENS WHERE UPPER(NATION) = UPPER(:nation)",
-        resultClass = Token.class
-)
 @Entity(name = "TOKENS")
 @Getter
 @Setter
@@ -31,11 +26,5 @@ public class Token {
     @NonNull
     private String name;
 
-    //@NotNull
-    //@NonNull
     private char gender;
-
-    //@NotNull
-    //@NonNull
-    private String nation;
 }
