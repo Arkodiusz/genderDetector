@@ -2,7 +2,7 @@
  
 ## About The Project
  
-It's a simple Java application, that can detect gender by given name. Algorithm compares name with tokens provided in *.txt files. 
+It's a simple Java application, that can detect gender by given name. Algorithm compares name with tokens stored in atabase. 
 Comparison can take place in two variants. 
 First takes into account only the first token of provided name, the second chcecks all tokens and majority rule is used.
  
@@ -12,9 +12,12 @@ First takes into account only the first token of provided name, the second chcec
 * Java
 * Gradle
 * Spring
- 
- 
- 
+* PostgreSQL
+* Hibernate 
+
+* Deployed on Heroku 
+  
+  
   
 ## Endpoints
  
@@ -35,9 +38,9 @@ Default value is 1.
  
  
 * #### SHOW TOKENS
-GET /api/gender/tokens/{gender}
+GET /api/tokens/{gender}
  
-Returns list of all avaiable tokens of chosen gender.
+ Returns list of all avaiable tokens of chosen gender.
  
 ##### PATH PARAMETER
 String gender
@@ -46,14 +49,16 @@ Avaiable values are "male" or "female".
  
  
  
-## Information
-* Avaiable tokens lists are provided as *.txt files. Encoding is set to UTF-8, and this charset should be set in your IDE when working with code.
-* Token lists do not contains names with Polish characters
- 
+
  
  
 ## Contact
  
-Arkadiusz Jędrzejewski - arkadiusz.jedrzej@gmail.com
- 
-Project Link: [https://github.com/Arkodiusz/genderDetector](https://github.com/Arkodiusz/genderDetector)
+Arkadiusz Jędrzejewski\
+arkadiusz.jedrzej@gmail.com
+
+
+###Links:
+* [Project GUI](https://bgenderator.herokuapp.com)
+* [Project repo](https://github.com/Arkodiusz/genderDetector)
+* [My portfolio](https://arkodiusz.github.io)
