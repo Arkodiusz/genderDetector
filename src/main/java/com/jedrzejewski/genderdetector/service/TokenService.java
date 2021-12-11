@@ -23,8 +23,11 @@ public class TokenService {
     }
 
     public Token createToken(final Token token) {
-
         return tokenRepository.save(token);
+    }
+
+    public List<Token> createTokens(final List<Token> tokens) {
+        return tokenRepository.saveAll(tokens);
     }
 
     public Token updateToken(final Token newToken) {

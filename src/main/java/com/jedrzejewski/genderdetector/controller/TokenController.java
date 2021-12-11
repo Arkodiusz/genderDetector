@@ -43,9 +43,14 @@ public class TokenController {
     }
 
     @PostMapping(value = "/tokens", consumes = APPLICATION_JSON_VALUE)
-    public void createRoute(@RequestBody TokenDto tokenDto) {
+    public void createToken(@RequestBody TokenDto tokenDto) {
         service.createToken(mapper.mapToToken(tokenDto));
     }
+    @PostMapping(value = "/tokens/fill", consumes = APPLICATION_JSON_VALUE)
+    public void createTokens(@RequestBody List<TokenDto> tokenDtoList) {
+        service.createTokens(mapper.mapToTokenList(tokenDtoList));
+    }
+
 
     @PutMapping(value = "/tokens", consumes = APPLICATION_JSON_VALUE)
     public Token updateRoute(@RequestBody TokenDto tokenDto) {
