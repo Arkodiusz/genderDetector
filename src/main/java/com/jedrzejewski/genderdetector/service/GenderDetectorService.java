@@ -28,23 +28,20 @@ public class GenderDetectorService {
         AtomicInteger maleCount = new AtomicInteger(0);
         AtomicInteger femaleCount = new AtomicInteger(0);
 
-        tokenService.getMaleTokens()
+        tokenService.getAllTokens()
                 .forEach(t -> {
-                    String name = t.getName();
                     for (String providedToken : providedTokens) {
-                        if (providedToken.equalsIgnoreCase(name.toUpperCase())) {
-                            maleCount.getAndIncrement();
-                            break;
-                        }
-                    }
-                });
-
-        tokenService.getFemaleTokens()
-                .forEach(t -> {
-                    String name = t.getName();
-                    for (String providedToken : providedTokens) {
-                        if (providedToken.equalsIgnoreCase(name)) {
-                            femaleCount.getAndIncrement();
+                        if (providedToken.equalsIgnoreCase(t.getName())) {
+                            switch (t.getGender()) {
+                                case ('m'):
+                                    maleCount.getAndIncrement();
+                                    break;
+                                case ('f'):
+                                    femaleCount.getAndIncrement();
+                                    break;
+                                default:
+                                    break;
+                            }
                             break;
                         }
                     }
