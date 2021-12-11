@@ -1,19 +1,21 @@
-package com.jedrzejewski.genderdetector;
+package com.jedrzejewski.genderdetector.service;
 
-import lombok.RequiredArgsConstructor;
+import com.jedrzejewski.genderdetector.data.Response;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class GenderDetectorService {
 
     private final TokenService tokenService;
 
-    public ResponseDTO detectGender(String name, String variant)  {
+    public Response detectGender(String name, String variant)  {
         if (variant.equals("2")) {
             return countOccurrencesInTokensLists(retrieveAllTokens(name));
         } else {
@@ -21,7 +23,7 @@ public class GenderDetectorService {
         }
     }
 
-    private ResponseDTO countOccurrencesInTokensLists(String[] providedTokens) {
+    private Response countOccurrencesInTokensLists(String[] providedTokens) {
 
         AtomicInteger maleCount = new AtomicInteger(0);
         AtomicInteger femaleCount = new AtomicInteger(0);
@@ -49,9 +51,7 @@ public class GenderDetectorService {
                 });
 
         Set<String> tokenSet = new HashSet<>();
-        for (String token : providedTokens) {
-            tokenSet.add(token);
-        }
+        Collections.addAll(tokenSet, providedTokens);
         int length = tokenSet.size();
 
         double percentage;
@@ -70,7 +70,7 @@ public class GenderDetectorService {
             percentage = ((double)inconclusiveCount/length)/100;
         }
 
-        return new ResponseDTO(
+        return new Response(
                 designation,
                 maleCount.get(),
                 femaleCount.get(),

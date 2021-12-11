@@ -1,5 +1,4 @@
-package com.jedrzejewski.genderdetector;
-
+package com.jedrzejewski.genderdetector.data;
 
 import lombok.*;
 
@@ -23,7 +22,7 @@ public class Token {
     private Long id;
 
     @NotNull
-    @NonNull
+    @lombok.NonNull
     private String name;
 
     private char gender;

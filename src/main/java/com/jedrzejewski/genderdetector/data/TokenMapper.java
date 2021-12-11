@@ -1,4 +1,4 @@
-package com.jedrzejewski.genderdetector;
+package com.jedrzejewski.genderdetector.data;
 
 import org.springframework.stereotype.Service;
 

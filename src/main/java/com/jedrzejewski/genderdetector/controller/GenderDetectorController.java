@@ -1,5 +1,7 @@
-package com.jedrzejewski.genderdetector;
+package com.jedrzejewski.genderdetector.controller;
 
+import com.jedrzejewski.genderdetector.data.Response;
+import com.jedrzejewski.genderdetector.service.GenderDetectorService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,7 +15,7 @@ public class GenderDetectorController {
     }
 
     @GetMapping(value = "/gender/{name}")
-    public ResponseDTO detectGender(
+    public Response detectGender(
             @PathVariable String name,
             @RequestParam(defaultValue = "1") String variant) {
 

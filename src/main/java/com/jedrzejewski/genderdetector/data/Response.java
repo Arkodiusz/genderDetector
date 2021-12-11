@@ -1,4 +1,4 @@
-package com.jedrzejewski.genderdetector;
+package com.jedrzejewski.genderdetector.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseDTO {
+public class Response {
     private String designation;
     private int male;
     private int female;

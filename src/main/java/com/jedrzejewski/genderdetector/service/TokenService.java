@@ -1,13 +1,15 @@
-package com.jedrzejewski.genderdetector;
+package com.jedrzejewski.genderdetector.service;
 
+import com.jedrzejewski.genderdetector.data.Token;
 import com.jedrzejewski.genderdetector.exceptions.TokenNotFoundException;
-import lombok.RequiredArgsConstructor;
+import com.jedrzejewski.genderdetector.repository.TokenRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class TokenService {
 
     private final TokenRepository tokenRepository;

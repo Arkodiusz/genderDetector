@@ -1,5 +1,9 @@
-package com.jedrzejewski.genderdetector;
+package com.jedrzejewski.genderdetector.controller;
 
+import com.jedrzejewski.genderdetector.data.TokenMapper;
+import com.jedrzejewski.genderdetector.data.Token;
+import com.jedrzejewski.genderdetector.data.TokenDto;
+import com.jedrzejewski.genderdetector.service.TokenService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
