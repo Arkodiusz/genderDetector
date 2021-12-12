@@ -44,12 +44,12 @@ public class TokenService {
         tokenRepository.deleteById(id);
     }
 
-    public List<Token> getMaleTokens() {
-        return tokenRepository.retrieveByGender('m');
+    public List<Token> getTokens(char gender) {
+        return tokenRepository.retrieveByGender(gender);
     }
 
-    public List<Token> getFemaleTokens() {
-        return tokenRepository.retrieveByGender('f');
+    public List<Token> getTokensWithPagination(char gender, int limit, int offset) {
+        return tokenRepository.retrieveByGenderWithPagination(gender, limit, offset);
     }
 }
 

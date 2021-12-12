@@ -34,12 +34,12 @@ public class TokenController {
 
     @GetMapping(value = "/tokens/male")
     public List<TokenDto> getMaleTokens() {
-        return mapper.mapToTokenDtoList(service.getMaleTokens());
+        return mapper.mapToTokenDtoList(service.getTokens('m'));
     }
 
     @GetMapping(value = "/tokens/female")
     public List<TokenDto> getFemaleTokens() {
-        return mapper.mapToTokenDtoList(service.getFemaleTokens());
+        return mapper.mapToTokenDtoList(service.getTokens('f'));
     }
 
     @PostMapping(value = "/tokens", consumes = APPLICATION_JSON_VALUE)

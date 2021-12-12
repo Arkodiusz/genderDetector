@@ -14,5 +14,14 @@ import java.util.List;
 public interface TokenRepository extends JpaRepository<Token, Long> {
 
     @Query(nativeQuery = true)
-    List<Token> retrieveByGender(@Param("gender") char gender);
+    List<Token> retrieveByGender(
+            @Param("gender") char gender
+    );
+
+    @Query(nativeQuery = true)
+    List<Token> retrieveByGenderWithPagination(
+            @Param("gender") char gender,
+            @Param("limit") int limit,
+            @Param("offset") int offset
+    );
 }

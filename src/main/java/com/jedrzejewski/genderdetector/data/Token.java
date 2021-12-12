@@ -7,7 +7,14 @@ import javax.validation.constraints.NotNull;
 
 @NamedNativeQuery(
         name = "Token.retrieveByGender",
-        query = "SELECT * FROM TOKENS WHERE GENDER = :gender",
+        query = "SELECT * FROM TOKENS WHERE GENDER = :gender ",
+        resultClass = Token.class
+)
+@NamedNativeQuery(
+        name = "Token.retrieveByGenderWithPagination",
+        query = "SELECT * FROM TOKENS WHERE GENDER = :gender " +
+                "ORDER BY NAME " +
+                "LIMIT :limit OFFSET :offset ",
         resultClass = Token.class
 )
 @Entity(name = "TOKENS")
