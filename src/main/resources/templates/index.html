@@ -9,7 +9,9 @@
 </head>
 <body>
 <h1>Gender Predictor</h1>
+
 <div class="predictor-container">
+    <h4>Enter name (or names) and choose prediction variant.</h4>
     <form method="get" th:action="@{/predict}" class="form-control">
         <div class="form-field">
             <label for="name">Name:</label>
@@ -25,7 +27,7 @@
         <input id="form-submit" type="submit" value="PREDICT">
     </form>
     <h4>Prediction:</h4>
-    <p th:text="${response}">response</p>
+    <h3 th:text="${response}"> response </h3>
 </div>
 <div class="tokens-tables-container">
     <div class="table-container">
