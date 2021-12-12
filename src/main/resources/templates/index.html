@@ -2,14 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>My welcome page</title>
-    <script type="text/javascript" th:src="@{js/scripts.js}"></script>
+    <title>GENDER PREDICTOR</title>
+    <script type="text/javascript" th:src="@{scripts.js}"></script>
+    <link th:href="@{styles.css}" rel="stylesheet" />
 </head>
 <body>
     <h1>Gender Predictor</h1>
     <br/>
-    <button type="button" th:onclick="fillDb('male')">Fill males</button>
-    <button type="button" th:onclick="fillDb('female')">Fill females</button>
+<!--    <button type="button" th:onclick="fillDb('male')">Fill males</button>-->
+<!--    <button type="button" th:onclick="fillDb('female')">Fill females</button>-->
     <br/>
     <form method="post" th:action="@{/predict}">
         <label for="name">Name</label>
