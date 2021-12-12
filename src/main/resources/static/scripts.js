@@ -1,5 +1,5 @@
-// const url = 'http://localhost:8080'
-const url = 'https://bgenderator.herokuapp.com'
+const url = 'http://localhost:8080'
+// const url = 'https://bgenderator.herokuapp.com'
 
 const fillDb = async (gender) => {
 
@@ -16,7 +16,8 @@ const fillDb = async (gender) => {
 
     const names = await fetch(`${gender}.txt`)
         .then(response => response.text())
-        .then(text => text.split('\n'))
+        // .then(text => text.split('\n'))              // for heroku
+        .then(text => text.split('\r\n'))               // for localhost
 
     const chunks = divideNameListToChunks(names, 50)
 
@@ -28,12 +29,12 @@ const fillDb = async (gender) => {
                 name: name,
                 gender: genderSign
             }
-            tokens.push(tokenDto)
+            // tokens.push(tokenDto)
             console.log(tokenDto)
         })
 
         const body = JSON.stringify(tokens)
-        console.log(body)
+        // console.log(body)
 
         await fetch(`${url}/api/tokens/fill`, {
             method: 'POST',

@@ -1,6 +1,117 @@
-
-
-
 body {
-    background-color: gray;
+    font-family: Lato, sans-serif;
+    padding: 10px;
+    /*justify-content: center;*/
+    display:flex;
+    flex-direction: column;
+    background-color: #e8eddf;
+    color: #242423;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+h1, h2, h3, h4, h5 {
+    color: #242423;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+h3 {
+    margin: 10px auto;
+}
+
+.predictor-container {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    background-color: #f5cb5c;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid black;
+    /*width: max-content;*/
+}
+.predictor-container form {
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.form-control {
+    align-items: center;
+}
+
+.predictor-container .form-field {
+    padding-bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+
+.form-field label {
+    padding-top: 10px;
+}
+
+.form-field input {
+    padding: 10px;
+}
+
+.form-field select {
+    padding: 10px;
+}
+
+#form-submit {
+    width: 120px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.predictor-container p {
+    margin-top: -15px;
+}
+
+.tokens-tables-container {
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+    flex-flow: wrap;
+    gap: 50px;
+    min-width: 215px;
+}
+
+.table-container {
+    border: 1px solid black;
+    background-color: #cfdbd5;
+    align-content: center;
+    display: flex;
+    flex-flow: column;
+    text-align: center;
+    min-width: 200px;
+    min-height: 200px;
+    position: relative;
+    padding: 10px 10px 65px;
+}
+
+.table-nav {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: calc(100% - 20px);
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+}
+
+.table-nav input {
+    height: 40px;
+    width: 40px;
 }

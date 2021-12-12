@@ -4,43 +4,66 @@
     <meta charset="UTF-8">
     <title>GENDER PREDICTOR</title>
     <script type="text/javascript" th:src="@{scripts.js}"></script>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link th:href="@{styles.css}" rel="stylesheet" />
 </head>
 <body>
-    <h1>Gender Predictor</h1>
-    <br/>
-<!--    <button type="button" th:onclick="fillDb('male')">Fill males</button>-->
-<!--    <button type="button" th:onclick="fillDb('female')">Fill females</button>-->
-    <br/>
-    <form method="post" th:action="@{/predict}">
-        <label for="name">Name</label>
-        <input id="name" type="text" th:name="name" name="name"/>
-        <label for="variant">Variant:</label>
-        <select id="variant" th:name="variant">
-            <option value="1">1</option>
-            <option value="2">2</option>
-        </select>
-        <input type="submit" value="Predict">
+<h1>Gender Predictor</h1>
+<div class="predictor-container">
+    <form method="get" th:action="@{/predict}" class="form-control">
+        <div class="form-field">
+            <label for="name">Name:</label>
+            <input id="name" type="text" th:name="name" name="name"/>
+        </div>
+        <div class="form-field">
+            <label for="variant">Variant:</label>
+            <select id="variant" th:name="variant">
+                <option value="1">consider only first token</option>
+                <option value="2">consider all tokens</option>
+            </select>
+        </div>
+        <input id="form-submit" type="submit" value="PREDICT">
     </form>
+    <h4>Prediction:</h4>
     <p th:text="${response}">response</p>
-    <br/>
-    <table>
-        <tbody>
-            <tr th:each="token : ${maleTokens}">
-                <td><span th:text="${token.id}"> token </span></td>
+</div>
+<div class="tokens-tables-container">
+    <div class="table-container">
+        <table>
+            <th><h3>FEMALE TOKENS</h3></th>
+            <tbody>
+            <tr th:each="token : ${femaleTokens}">
                 <td><span th:text="${token.name}"> token </span></td>
             </tr>
-        </tbody>
-    </table>
-    <br/>
-    <table>
-        <tbody>
-        <tr th:each="token : ${femaleTokens}">
-            <td><span th:text="${token.id}"> token </span></td>
-            <td><span th:text="${token.name}"> token </span></td>
-        </tr>
-        </tbody>
-    </table>
-
+            </tbody>
+        </table>
+        <div class="table-nav">
+            <form method="get" th:action="@{/femalePreviousPage}">
+                <input type="submit" value="<<">
+            </form>
+            <form method="get" th:action="@{/femaleNextPage}">
+                <input type="submit" value=">>">
+            </form>
+        </div>
+    </div>
+    <div class="table-container">
+        <table>
+            <th><h3>MALE TOKENS</h3></th>
+            <tbody>
+            <tr th:each="token : ${maleTokens}">
+                <td><span th:text="${token.name}"> token </span></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="table-nav">
+            <form method="get" th:action="@{/malePreviousPage}">
+                <input type="submit" value="<<">
+            </form>
+            <form method="get" th:action="@{/maleNextPage}">
+                <input type="submit" value=">>">
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>
